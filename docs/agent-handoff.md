@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Energy OS is being initialized as an open source, build-in-public repository. The first product wedge is upstream production decision support for oil and gas assets.
+Energy OS is initialized as an open source, build-in-public repository at `https://github.com/lucasgday/energy-os`. The first product wedge is upstream production decision support for oil and gas assets.
 
 ## Hecho
 
@@ -11,6 +11,7 @@ Energy OS is being initialized as an open source, build-in-public repository. Th
 - Defined product blueprint and first-pass domain model.
 - Added public build-in-public rules.
 - Added initial JSON schemas for wells, production events, deferments, and opportunities.
+- Published the initial repository to GitHub.
 
 ## Pendientes
 
@@ -28,4 +29,3 @@ Energy OS is being initialized as an open source, build-in-public repository. Th
 ## Bloqueos/Decisiones
 
 - Decide whether the first app is local-first, SaaS-first, or hybrid.
-- Decide whether to initialize the remote GitHub repository now or after the first prototype.
