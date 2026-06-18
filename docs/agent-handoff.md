@@ -14,12 +14,20 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Published the initial repository to GitHub.
 - Chose a hybrid prototype direction: local-first execution with SaaS-ready architecture.
 - Added the Hybrid MVP Foundation implementation plan.
+- Created the initial public GitHub backlog:
+  - `#1` Synthetic field dataset v0.
+  - `#2` pnpm TypeScript workspace.
+  - `#3` domain validation package.
+  - `#4` opportunity economics package.
+  - `#5` CSV import helpers.
+  - `#6` Next.js production review shell.
+  - `#7` issue templates and labels.
 
 ## Pendientes
 
 - Add synthetic field dataset v0.
 - Build the first import and dashboard prototype.
-- Create public issue templates and first backlog.
+- Add public issue templates and labels.
 
 ## To QA
 
@@ -29,4 +37,4 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 
 ## Bloqueos/Decisiones
 
-- Confirm the first public issue backlog and labels.
+Nada por ahora.
