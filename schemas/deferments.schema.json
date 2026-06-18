@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://energy-os.org/schemas/deferments.schema.json",
+  "title": "Deferment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["deferment_id", "well_id", "started_at", "category", "status"],
+  "properties": {
+    "deferment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "well_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["surface", "subsurface", "facility", "power", "market", "weather", "planned", "unknown"]
+    },
+    "cause": {
+      "type": "string"
+    },
+    "estimated_oil_loss": {
+      "type": "number",
+      "minimum": 0
+    },
+    "estimated_gas_loss": {
+      "type": "number",
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "resolved", "reviewed", "dismissed"]
+    },
+    "source": {
+      "type": "string"
+    }
+  }
+}

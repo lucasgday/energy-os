@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://energy-os.org/schemas/wells.schema.json",
+  "title": "Well",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["well_id", "field_id", "name", "well_type", "status"],
+  "properties": {
+    "well_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "field_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "well_type": {
+      "type": "string",
+      "enum": ["producer", "injector", "monitor", "disposal", "other"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["producing", "injecting", "shut_in", "abandoned", "planned", "unknown"]
+    },
+    "country": {
+      "type": "string"
+    },
+    "basin": {
+      "type": "string"
+    },
+    "target_formation": {
+      "type": "string"
+    },
+    "artificial_lift_type": {
+      "type": "string",
+      "enum": ["none", "rod_pump", "esp", "gas_lift", "pcp", "jet_pump", "plunger_lift", "unknown"]
+    },
+    "spud_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "first_production_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "surface_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    },
+    "source": {
+      "type": "string"
+    }
+  }
+}

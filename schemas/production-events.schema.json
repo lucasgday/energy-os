@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://energy-os.org/schemas/production-events.schema.json",
+  "title": "Production Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["production_event_id", "well_id", "production_date"],
+  "properties": {
+    "production_event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "well_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "production_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "oil_volume": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Oil production volume for the period."
+    },
+    "gas_volume": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Gas production volume for the period."
+    },
+    "water_volume": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Water production volume for the period."
+    },
+    "uptime_hours": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 24
+    },
+    "period_hours": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 24
+    },
+    "measurement_method": {
+      "type": "string",
+      "enum": ["metered", "allocated", "estimated", "manual", "unknown"]
+    },
+    "source": {
+      "type": "string"
+    }
+  }
+}

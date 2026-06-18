@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Build output
+dist/
+build/
+.next/
+coverage/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Data that must not be committed
+datasets/private/
+data/private/
+exports/private/
+*.sqlite
+*.sqlite3

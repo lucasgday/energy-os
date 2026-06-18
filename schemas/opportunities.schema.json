@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://energy-os.org/schemas/opportunities.schema.json",
+  "title": "Opportunity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["opportunity_id", "well_id", "title", "source", "status"],
+  "properties": {
+    "opportunity_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "well_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "enum": ["manual", "rule", "model", "imported"]
+    },
+    "hypothesis": {
+      "type": "string"
+    },
+    "expected_oil_uplift": {
+      "type": "number",
+      "minimum": 0
+    },
+    "expected_gas_uplift": {
+      "type": "number",
+      "minimum": 0
+    },
+    "estimated_cost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "estimated_payout_days": {
+      "type": "number",
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": ["proposed", "reviewed", "approved", "rejected", "executed", "measured"]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
