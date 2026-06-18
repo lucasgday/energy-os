@@ -42,6 +42,7 @@ docs/
   roadmap.md
   product-blueprint.md
   domain-model.md
+  technical-direction.md
   build-in-public.md
 datasets/
   synthetic-field-v0/

@@ -81,3 +81,7 @@ Produces daily and weekly summaries for production meetings, leadership review, 
 - The system should preserve original values and avoid silent cleanup that changes meaning.
 - Real data must never be required to contribute publicly.
 - Safety-critical workflows require explicit review before they enter scope.
+
+## Prototype Direction
+
+The first prototype is hybrid: local-first for public contribution and SaaS-ready by architecture. It should run with synthetic data and no external services, while keeping domain logic, economics, import validation, and storage boundaries outside the web UI.

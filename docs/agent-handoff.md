@@ -12,11 +12,12 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added public build-in-public rules.
 - Added initial JSON schemas for wells, production events, deferments, and opportunities.
 - Published the initial repository to GitHub.
+- Chose a hybrid prototype direction: local-first execution with SaaS-ready architecture.
+- Added the Hybrid MVP Foundation implementation plan.
 
 ## Pendientes
 
 - Add synthetic field dataset v0.
-- Choose the initial technical stack.
 - Build the first import and dashboard prototype.
 - Create public issue templates and first backlog.
 
@@ -28,4 +29,4 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 
 ## Bloqueos/Decisiones
 
-- Decide whether the first app is local-first, SaaS-first, or hybrid.
+- Confirm the first public issue backlog and labels.

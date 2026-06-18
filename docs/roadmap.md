@@ -30,7 +30,7 @@ Exit criteria:
 - Synthetic data can represent a mature field with realistic operating issues.
 - At least 5 practitioner conversations confirm or challenge the workflow.
 
-## Phase 1: Local MVP
+## Phase 1: Hybrid MVP
 
 Target: 4 to 8 weeks after foundation.
 
@@ -40,12 +40,14 @@ Target: 4 to 8 weeks after foundation.
 - Calculate simple decline and production variance.
 - Rank opportunities with estimated uplift, cost, and payout.
 - Maintain a decision journal.
+- Keep domain logic outside the web app so the local MVP can evolve into a hosted SaaS product.
 
 Exit criteria:
 
 - A user can load synthetic data and run a daily production review locally.
 - The app can produce a basic list of ranked opportunities.
 - Every recommendation links back to input data and assumptions.
+- The app runs without external services but has clear storage boundaries for future hosted deployments.
 
 ## Phase 2: Pilot-Ready Workspace
 

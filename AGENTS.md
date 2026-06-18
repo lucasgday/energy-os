@@ -15,6 +15,7 @@ Before substantive product or implementation work, read:
 - `docs/roadmap.md`
 - `docs/product-blueprint.md`
 - `docs/domain-model.md`
+- `docs/technical-direction.md`
 - `docs/build-in-public.md`
 
 ## Public Repo Rules
