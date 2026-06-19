@@ -29,7 +29,7 @@
 - Create: `pnpm-workspace.yaml`
 - Create: `tsconfig.base.json`
 
-- [ ] **Step 1: Create root package manifest**
+- [x] **Step 1: Create root package manifest**
 
 ```json
 {
@@ -48,7 +48,7 @@
 }
 ```
 
-- [ ] **Step 2: Create workspace file**
+- [x] **Step 2: Create workspace file**
 
 ```yaml
 packages:
@@ -56,7 +56,7 @@ packages:
   - "packages/*"
 ```
 
-- [ ] **Step 3: Create shared TypeScript config**
+- [x] **Step 3: Create shared TypeScript config**
 
 ```json
 {
@@ -76,13 +76,13 @@ packages:
 }
 ```
 
-- [ ] **Step 4: Install dependencies**
+- [x] **Step 4: Install dependencies**
 
 Run: `pnpm install`
 
 Expected: lockfile is created and install exits with code 0.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add package.json pnpm-workspace.yaml tsconfig.base.json pnpm-lock.yaml
@@ -401,7 +401,7 @@ git commit -m "feat: add basic opportunity economics"
 - Create: `datasets/synthetic-field-v0/deferments.csv`
 - Create: `datasets/synthetic-field-v0/opportunities.csv`
 
-- [ ] **Step 1: Add well fixture**
+- [x] **Step 1: Add well fixture**
 
 ```csv
 well_id,field_id,name,well_type,status,artificial_lift_type,target_formation,source
@@ -411,7 +411,7 @@ well-003,field-alpha,Alpha-03,producer,shut_in,gas_lift,Sand B,synthetic
 well-004,field-alpha,Alpha-04,producer,producing,pcp,Sand B,synthetic
 ```
 
-- [ ] **Step 2: Add production fixture**
+- [x] **Step 2: Add production fixture**
 
 ```csv
 production_event_id,well_id,production_date,oil_volume,gas_volume,water_volume,uptime_hours,period_hours,measurement_method,source
@@ -429,7 +429,7 @@ pe-011,well-004,2026-06-16,64,315,179,24,24,allocated,synthetic
 pe-012,well-004,2026-06-17,65,319,181,24,24,allocated,synthetic
 ```
 
-- [ ] **Step 3: Add deferment fixture**
+- [x] **Step 3: Add deferment fixture**
 
 ```csv
 deferment_id,well_id,started_at,ended_at,category,cause,estimated_oil_loss,estimated_gas_loss,status,source
@@ -437,7 +437,7 @@ def-001,well-001,2026-06-17T09:00:00Z,2026-06-17T18:00:00Z,surface,Rod pump down
 def-002,well-003,2026-06-15T00:00:00Z,,subsurface,Shut-in pending review,45,210,open,synthetic
 ```
 
-- [ ] **Step 4: Add opportunity fixture**
+- [x] **Step 4: Add opportunity fixture**
 
 ```csv
 opportunity_id,well_id,title,source,hypothesis,expected_oil_uplift,expected_gas_uplift,estimated_cost,estimated_payout_days,status,evidence_refs
@@ -445,11 +445,11 @@ opp-001,well-001,Inspect rod pump after downtime,manual,Recent downtime caused m
 opp-002,well-003,Review shut-in restart candidate,manual,Well is shut in with estimated recoverable daily production,35,160,18000,9,proposed,def-002
 ```
 
-- [ ] **Step 5: Update dataset README**
+- [x] **Step 5: Update dataset README**
 
 Document that all values are fictional, units are daily barrels for oil and water, gas units are synthetic Mcf-like volumes, and dates are sample operating dates.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add datasets/synthetic-field-v0

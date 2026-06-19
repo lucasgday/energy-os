@@ -23,10 +23,11 @@ Energy OS is initialized as an open source, build-in-public repository at `https
   - `#5` CSV import helpers.
   - `#6` Next.js production review shell.
   - `#7` issue templates and labels.
+- Added synthetic field dataset v0 for `#1`.
+- Added pnpm TypeScript workspace baseline for `#2`.
 
 ## Pendientes
 
-- Add synthetic field dataset v0.
 - Build the first import and dashboard prototype.
 - Add public issue templates and labels.
 
