@@ -43,6 +43,7 @@ docs/
   product-blueprint.md
   domain-model.md
   technical-direction.md
+  public-data-sources.md
   build-in-public.md
 datasets/
   synthetic-field-v0/

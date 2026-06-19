@@ -25,11 +25,14 @@ Energy OS is initialized as an open source, build-in-public repository at `https
   - `#7` issue templates and labels.
 - Added synthetic field dataset v0 for `#1`.
 - Added pnpm TypeScript workspace baseline for `#2`.
+- Added public data source documentation for Argentina and U.S. official datasets.
+- Created `#8` to map Argentina Capítulo IV data to Energy OS schemas.
 
 ## Pendientes
 
 - Build the first import and dashboard prototype.
 - Add public issue templates and labels.
+- Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
 
 ## To QA
 
