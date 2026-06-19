@@ -2,14 +2,15 @@
 
 Energy OS is public from day zero. The project should build trust through transparent product decisions, realistic domain modeling, and useful synthetic data.
 
-## What We Publish
+## What Can Be Public
 
 - Product thesis and roadmap.
 - Domain model and schema changes.
 - Synthetic datasets.
 - Architecture decisions.
 - Public backlog and issues.
-- Demo notes and release notes.
+- Demo notes when there is a useful demo.
+- Release notes when there is a meaningful release.
 - Non-confidential learnings from practitioner feedback.
 
 ## What We Do Not Publish
@@ -21,12 +22,11 @@ Energy OS is public from day zero. The project should build trust through transp
 - Private pricing, commercial negotiation details, or confidential pilots.
 - Safety-sensitive operational procedures without review.
 
-## Communication Cadence
+## Public Update Policy
 
-- Weekly build note: what changed, what was learned, what is next.
-- Biweekly demo: short walkthrough of working product or data model progress.
-- Public issues: concrete product and engineering tasks.
-- Decision logs: durable reasoning for major architecture and product choices.
+There is no fixed publishing cadence. Public updates can happen when there is something useful to share: a working slice, a meaningful product decision, a schema change, a new dataset, or a lesson that helps contributors understand the project.
+
+Public issues and decision logs are preferred for durable project context. Social posts, demos, and essays are optional.
 
 ## Tone
 

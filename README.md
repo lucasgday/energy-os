@@ -55,7 +55,7 @@ schemas/
 
 ## Build In Public
 
-We will publish decisions, roadmap changes, domain assumptions, and synthetic datasets openly. Real operator feedback may be summarized only when it can be made non-confidential and non-identifying.
+When useful, we publish decisions, roadmap changes, domain assumptions, and synthetic datasets openly. Real operator feedback may be summarized only when it can be made non-confidential and non-identifying.
 
 The default rule is:
 

@@ -14,6 +14,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Published the initial repository to GitHub.
 - Chose a hybrid prototype direction: local-first execution with SaaS-ready architecture.
 - Added the Hybrid MVP Foundation implementation plan.
+- Removed fixed public cadence and timeline commitments from public docs.
 - Created the initial public GitHub backlog:
   - `#1` Synthetic field dataset v0.
   - `#2` pnpm TypeScript workspace.

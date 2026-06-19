@@ -16,7 +16,7 @@ Example outcome metrics:
 
 ## Phase 0: Foundation
 
-Target: 2 to 4 weeks.
+Stage: first.
 
 - Publish thesis, roadmap, product blueprint, build-in-public rules, and domain model.
 - Define the v0 entities: field, well, completion, production event, deferment, intervention, opportunity, cost, price scenario, decision.
@@ -28,11 +28,11 @@ Exit criteria:
 
 - Public documentation explains the product without overclaiming.
 - Synthetic data can represent a mature field with realistic operating issues.
-- At least 5 practitioner conversations confirm or challenge the workflow.
+- Practitioner feedback confirms or challenges the workflow.
 
 ## Phase 1: Hybrid MVP
 
-Target: 4 to 8 weeks after foundation.
+Stage: after foundation.
 
 - Import CSV or Excel files for wells, production, downtime, and costs.
 - Show field and well dashboards.
@@ -51,7 +51,7 @@ Exit criteria:
 
 ## Phase 2: Pilot-Ready Workspace
 
-Target: 8 to 12 weeks after MVP.
+Stage: after the hybrid MVP.
 
 - Add authentication and operator workspaces.
 - Support recurring data loads.
@@ -69,7 +69,7 @@ Exit criteria:
 
 ## Phase 3: Intelligence Layer
 
-Target: 3 to 6 months after a pilot-ready workspace.
+Stage: after a pilot-ready workspace shows repeated use.
 
 - Add artificial lift diagnostics.
 - Classify production losses and downtime patterns.
@@ -86,7 +86,7 @@ Exit criteria:
 
 ## Phase 4: Enterprise Interoperability
 
-Target: 6 to 12 months after initial pilot usage.
+Stage: after initial pilot usage proves integration demand.
 
 - Map relevant entities to OSDU and Energistics concepts where appropriate.
 - Add connectors for historian exports, SCADA exports, PI or AVEVA workflows, SAP, Maximo, and common data lakes.
@@ -101,7 +101,7 @@ Exit criteria:
 
 ## Phase 5: Digital Energy Operator
 
-Target: after demonstrated operational impact.
+Stage: after demonstrated operational impact.
 
 - Build a remote operations center workflow.
 - Partner with independent operators or asset owners.
