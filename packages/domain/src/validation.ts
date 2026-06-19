@@ -25,7 +25,7 @@ export class DomainValidationError extends Error {
   }
 }
 
-const ajv = new Ajv({ allErrors: true });
+const ajv = new Ajv({ allErrors: true, addUsedSchema: false });
 addFormats(ajv);
 
 const validatorCache = new WeakMap<object, ValidateFunction>();
