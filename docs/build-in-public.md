@@ -20,6 +20,7 @@ Energy OS is public from day zero. The project should build trust through transp
 - Customer names or operator feedback without permission.
 - Credentials, tokens, API keys, connection strings, or secrets.
 - Private pricing, commercial negotiation details, or confidential pilots.
+- Tenders, bids, contracts, invoices, purchase orders, bank details, treasury data, accounting records, customer terms, or negotiation strategy.
 - Safety-sensitive operational procedures without review.
 
 ## Public Update Policy

@@ -32,22 +32,29 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added `@energy-os/data-import` for CSV parsing, explicit numeric conversion, and upstream domain-validated imports (`#5`).
 - Added `apps/web`, a Next.js production review shell that loads the synthetic field dataset, validates imports, ranks opportunities with deterministic economics, and shows a read-only daily review workflow (`#6`).
 - Added public GitHub issue templates and type/area/priority labels with explicit public-data reminders (`#7`).
+- Expanded the roadmap and product blueprint to include future digital-operator modules: agent-assisted email/document workflows, contracts, procurement, treasury, accounting, sales, confidential commercial workspaces, and approval/audit controls.
+- Added commodity price source guidance: public benchmark scenarios can use EIA WTI, EIA Brent, EIA Henry Hub, and World Bank commodity data; realized prices, contract formulas, hedges, and customer terms remain private workspace inputs.
+- Added a web footer link from the production review shell to the public GitHub repository.
 
 ## Pendientes
 
 - Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
 - Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
+- Define a `PriceScenario` schema and connect it to opportunity economics once the importer/domain packages are ready.
+- Define the confidential workspace, permission, approval, and audit model before adding real email, contract, purchasing, payment, or sales workflows.
 
 ## Notes
 
 - `@energy-os/data-import` now depends on `@energy-os/domain` and returns `{ source, value }` records so downstream UI/import flows can preserve raw public CSV rows while working with validated Energy OS entities.
 - `apps/web` reads only `datasets/synthetic-field-v0` and does not require auth, cloud services, or real operator data.
+- Public price sources are only benchmark assumptions for demos and sensitivity analysis. Argentina/local realized prices should be modeled as confidential operator inputs unless an official reusable source is confirmed.
 
 ## To QA
 
 - Validate the daily production meeting workflow with production engineers or operators.
 - Manually review the GitHub issue forms in the public repo after push.
 - Review domain terms for petroleum engineering correctness.
+- Check the production review footer on desktop and mobile after the next web deployment.
 - Confirm that Apache 2.0 is the desired initial license.
 
 ## Bloqueos/Decisiones

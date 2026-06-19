@@ -75,6 +75,7 @@ Stage: after a pilot-ready workspace shows repeated use.
 - Classify production losses and downtime patterns.
 - Rank workovers and interventions across wells.
 - Forecast scenarios using price, cost, and uplift assumptions.
+- Add market price scenarios from public benchmark sources and private realized price inputs.
 - Generate a morning production briefing with evidence links.
 - Keep recommendations explainable and reviewable.
 
@@ -107,12 +108,32 @@ Stage: after demonstrated operational impact.
 - Partner with independent operators or asset owners.
 - Use Energy OS to operate mature assets with lower overhead.
 - Evaluate asset-light operating models, joint ventures, or software-enabled services.
+- Add agent-assisted business operations: email intake, document processing, purchasing, contracts, treasury, accounting, and sales workflows.
+- Add commercial controls for tenders, bids, contract negotiation, approvals, counterparties, obligations, and renewal dates.
+- Add confidential workspaces for deal rooms, contracts, bids, pricing, and negotiations with strict access control and audit trails.
 - Raise capital only with evidence of operational and economic improvement.
 
 Exit criteria:
 
 - There is proof that the system improves field operations.
 - The software can support a real operating model, not just reporting.
+- Agents can draft, classify, reconcile, and route business work, but material spend, contract, payment, sale, and negotiation actions remain permissioned and auditable.
+
+## Cross-Cutting: Confidential Commercial OS
+
+Stage: only after the production workflow and permission model are credible.
+
+- Treat emails, contracts, tenders, bids, invoices, payments, price formulas, and negotiations as confidential by default.
+- Store source documents separately from public examples and synthetic fixtures.
+- Require role-based access, document-level permissions, redaction, retention rules, and full audit logs.
+- Use agents for extraction, summarization, comparison, reconciliation, reminder generation, and draft preparation before autonomous execution.
+- Require explicit approval policies for outbound emails, bids, contract changes, purchase orders, payments, customer quotes, and revenue-affecting decisions.
+- Keep negotiation strategy, counterparty terms, commercial pricing, and legal review out of the public repo.
+
+Exit criteria:
+
+- A user can trace who saw a document, what an agent changed or proposed, which sources it used, and who approved the final action.
+- Confidential workflows can be tested with synthetic contracts, synthetic invoices, and sanitized email examples.
 
 ## Explicit Non-Goals For Now
 
@@ -121,3 +142,4 @@ Exit criteria:
 - No broad multi-energy platform before upstream production works.
 - No real field data in the public repo.
 - No black-box AI recommendations without inspectable assumptions.
+- No autonomous contract negotiation, purchasing, payments, or customer sales without explicit approval rules and auditability.

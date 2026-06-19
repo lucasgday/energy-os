@@ -47,6 +47,10 @@ Creates a prioritized queue of operational actions. An opportunity can come from
 
 Calculates simple expected value using estimated uplift, duration, commodity price assumptions, operating cost, intervention cost, and payout.
 
+### Price Scenarios
+
+Stores commodity price assumptions used in opportunity economics. Public examples can use benchmark sources such as WTI, Brent, Henry Hub, or World Bank commodity prices. Real realized prices, contract formulas, hedges, and customer-specific commercial terms are confidential inputs and should live in private workspaces only.
+
 ### Decision Journal
 
 Records recommendation, evidence, assumptions, reviewer, approval status, execution status, and measured result. This is central to trust.
@@ -54,6 +58,26 @@ Records recommendation, evidence, assumptions, reviewer, approval status, execut
 ### Reporting
 
 Produces daily and weekly summaries for production meetings, leadership review, and external exports.
+
+## Future Digital Operator Modules
+
+These modules are important to the long-term company vision, but they should not dilute the first production-operations wedge.
+
+### Agent Operations
+
+Coordinates agent-assisted workflows for email intake, document classification, task routing, evidence gathering, draft preparation, and follow-up reminders. Agents should start as copilots with human approval before any external action.
+
+### Commercial and Contracts
+
+Tracks tenders, bids, contracts, obligations, counterparties, renewal dates, pricing formulas, commitments, and approval status. This module must be confidential by default.
+
+### Procurement
+
+Supports purchasing requests, vendor comparisons, purchase orders, delivery status, invoice matching, and spend approvals.
+
+### Treasury, Accounting, and Sales
+
+Connects operational forecasts to cash planning, receivables, payables, revenue recognition, commodity price assumptions, customer invoices, and sales contracts.
 
 ## Open Source Core
 
@@ -81,6 +105,8 @@ Produces daily and weekly summaries for production meetings, leadership review, 
 - The system should preserve original values and avoid silent cleanup that changes meaning.
 - Real data must never be required to contribute publicly.
 - Safety-critical workflows require explicit review before they enter scope.
+- Confidential commercial documents, negotiations, prices, bids, payments, and customer terms are private by default.
+- Agent actions must be scoped, permissioned, logged, and reversible where practical.
 
 ## Prototype Direction
 

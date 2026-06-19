@@ -726,6 +726,33 @@ h3 {
   color: var(--accent);
 }
 
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 16px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.app-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-strong);
+  font-weight: 740;
+  text-decoration: none;
+}
+
+.app-footer a:hover,
+.app-footer a:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
 @media (max-width: 1180px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -756,6 +783,13 @@ h3 {
   .opportunities-panel,
   .selected-panel {
     grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 

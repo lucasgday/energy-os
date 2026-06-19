@@ -63,6 +63,12 @@ Coverage gap:
 
 - Generally too aggregated for well-level production workflows.
 
+Price use:
+
+- EIA is the first public benchmark source for Energy OS price assumptions.
+- Useful benchmark series include WTI Cushing spot price, Brent spot price, and Henry Hub natural gas spot price.
+- These are benchmark assumptions, not a substitute for realized operator prices, contract formulas, quality adjustments, transport differentials, hedges, or customer terms.
+
 ### Railroad Commission of Texas (RRC)
 
 Official download page:
@@ -105,3 +111,56 @@ Expected output:
 - Unit conversion decisions.
 - Source columns preserved in importer tests.
 - A tiny, license-reviewed sample only if public reuse terms are confirmed.
+
+## Commodity Price Sources
+
+Commodity prices should enter Energy OS as explicit `PriceScenario` assumptions. Public benchmark prices are useful for demos and sensitivity analysis. Real realized prices, contract formulas, hedges, customer terms, and negotiation positions are confidential and should be private workspace data.
+
+### EIA WTI and Brent spot prices
+
+Official WTI page:
+
+- https://www.eia.gov/dnav/pet/hist/RWTCD.htm
+
+Official Brent page:
+
+- https://www.eia.gov/dnav/pet/hist/RBRTED.htm
+
+Why it matters:
+
+- Daily public benchmark oil prices in USD per barrel.
+- Good default assumptions for synthetic opportunity economics and price sensitivity tests.
+
+Coverage gap:
+
+- Does not represent a specific operator's realized price, crude quality differential, transportation cost, sales contract, or tax/royalty treatment.
+
+### EIA Henry Hub natural gas spot price
+
+Official page:
+
+- https://www.eia.gov/dnav/ng/hist/rngwhhdD.htm
+
+Why it matters:
+
+- Daily public benchmark U.S. natural gas price in USD per MMBtu.
+- Useful for gas uplift sensitivity, especially before local or contract-specific gas pricing exists.
+
+Coverage gap:
+
+- Not equivalent to Argentina local gas realized price, regulated prices, LNG pricing, pipeline basis, buyer-specific terms, or contract formulas.
+
+### World Bank commodity price data
+
+Official page:
+
+- https://www.worldbank.org/en/research/commodity-markets
+
+Why it matters:
+
+- Monthly and annual commodity price files for broad benchmark context, including energy commodities.
+- Useful for public examples, long-term price scenario history, and macro sensitivity analysis.
+
+Coverage gap:
+
+- Monthly/annual macro data is too coarse for daily operational economics and does not represent operator-specific realized sales prices.
