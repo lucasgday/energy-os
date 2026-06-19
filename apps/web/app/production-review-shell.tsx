@@ -251,7 +251,7 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
         <footer className="app-footer">
           <span>Open source Energy OS</span>
           <a href="https://github.com/lucasgday/energy-os" target="_blank" rel="noreferrer">
-            View repository
+            GitHub
             <ExternalLink size={15} />
           </a>
         </footer>
