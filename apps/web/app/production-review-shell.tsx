@@ -274,8 +274,10 @@ function HealthGauge({ score }: { score: number }) {
     <article className="health-card">
       <span>Field health</span>
       <div className="gauge" style={{ background }}>
-        <strong>{score}</strong>
-        <small>/100</small>
+        <span className="gauge-value">
+          <strong>{score}</strong>
+          <small>/100</small>
+        </span>
       </div>
     </article>
   );

@@ -285,21 +285,27 @@ h3 {
   border-radius: 50%;
 }
 
+.gauge-value {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  gap: 1px;
+}
+
 .gauge strong,
 .gauge small {
-  position: relative;
   line-height: 1;
 }
 
 .gauge strong {
-  font-size: 22px;
+  font-size: 21px;
 }
 
 .gauge small {
-  margin-top: 22px;
-  margin-left: -25px;
   color: var(--muted);
   font-size: 10px;
+  font-weight: 720;
 }
 
 .metric-card {
