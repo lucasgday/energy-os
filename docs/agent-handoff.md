@@ -41,6 +41,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Created a Vercel project for the public demo and confirmed a preview deployment reaches `READY`. The preview URL is intentionally not committed to README because it is not a stable production/demo URL.
 - Promoted the Vercel deployment to production and assigned the stable demo alias `https://energy-os-demo.vercel.app`. The shorter `energy-os.vercel.app` alias is already in use.
 - Disabled Vercel Authentication and Password Protection for the public demo alias so `https://energy-os-demo.vercel.app` is reachable without a Vercel login.
+- Fixed the well status pill alignment in the production review table by keeping table helper text block-scoped while preserving inline-flex badge layout.
 
 ## Pendientes
 
@@ -67,6 +68,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Check the production review footer on desktop and mobile after the next web deployment.
 - Review contributor docs from the perspective of a first-time petroleum engineer and a first-time frontend contributor.
 - Confirm the public demo opens directly without a Vercel login after any future Vercel project protection changes.
+- Recheck the well status pill alignment after future table or badge layout changes.
 - Confirm that Apache 2.0 is the desired initial license.
 
 ## Bloqueos/Decisiones
