@@ -1,0 +1,3 @@
+opportunity_id,well_id,title,source,hypothesis,expected_oil_uplift,expected_gas_uplift,estimated_cost,estimated_payout_days,status,evidence_refs
+opp-001,well-001,Inspect rod pump after downtime,manual,Recent downtime caused material production loss,18,90,6500,6,proposed,def-001
+opp-002,well-003,Review shut-in restart candidate,manual,Well is shut in with estimated recoverable daily production,35,160,18000,9,proposed,def-002

@@ -1,0 +1,5 @@
+well_id,field_id,name,well_type,status,artificial_lift_type,target_formation,source
+well-001,field-alpha,Alpha-01,producer,producing,rod_pump,Sand A,synthetic
+well-002,field-alpha,Alpha-02,producer,producing,esp,Sand A,synthetic
+well-003,field-alpha,Alpha-03,producer,shut_in,gas_lift,Sand B,synthetic
+well-004,field-alpha,Alpha-04,producer,producing,pcp,Sand B,synthetic

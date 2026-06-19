@@ -1,20 +1,42 @@
 # Synthetic Field V0
 
-This directory is reserved for the first synthetic field dataset.
+This directory contains the first synthetic field dataset for Energy OS.
 
-The dataset must be realistic enough to exercise the product workflow, but it must not describe a real asset, operator, field, well list, or production history.
+The dataset is intentionally small. It is designed to exercise the first production review workflow without exposing real field, operator, well, or production data.
 
-Planned files:
+## Files
 
-- `wells.csv`
-- `production_events.csv`
-- `deferments.csv`
-- `opportunities.csv`
-- `README.md` with assumptions and generation rules.
+- `wells.csv`: fictional well metadata for one mature field.
+- `production_events.csv`: three daily production records per well.
+- `deferments.csv`: example production loss and downtime events.
+- `opportunities.csv`: example opportunity records linked to deferment evidence.
 
-Rules:
+## Assumptions
 
-- Use fictional field and well names.
-- Avoid coordinates that identify a real asset.
-- Use realistic production behavior without copying real production history.
-- Document units and assumptions.
+- Field and well names are fictional.
+- Dates are sample operating dates.
+- Oil and water volumes are daily barrel-like volumes.
+- Gas volumes are synthetic Mcf-like volumes.
+- Costs are expressed in USD-like values.
+- Coordinates are omitted to avoid implying a real asset location.
+- Production behavior is realistic enough for workflow testing, but does not copy any real production history.
+
+## Scenario
+
+`field-alpha` is a fictional mature field with four wells:
+
+- `well-001` has a rod pump downtime event and material production drop.
+- `well-002` is a stable ESP producer.
+- `well-003` is shut in and pending review.
+- `well-004` is a stable PCP producer.
+
+The dataset should support a simple review:
+
+1. Identify production changes.
+2. Inspect deferments.
+3. Link deferments to operating opportunities.
+4. Rank opportunities with simple economics in later implementation tasks.
+
+## Data Safety
+
+Do not replace these files with real asset data. If a real workflow inspires a fixture, convert it into a synthetic example before committing it.

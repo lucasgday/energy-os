@@ -1,0 +1,3 @@
+deferment_id,well_id,started_at,ended_at,category,cause,estimated_oil_loss,estimated_gas_loss,status,source
+def-001,well-001,2026-06-17T09:00:00Z,2026-06-17T18:00:00Z,surface,Rod pump downtime,31,150,resolved,synthetic
+def-002,well-003,2026-06-15T00:00:00Z,,subsurface,Shut-in pending review,45,210,open,synthetic
