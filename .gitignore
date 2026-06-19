@@ -8,6 +8,7 @@ dist/
 build/
 .next/
 coverage/
+*.tsbuildinfo
 
 # Local environment and secrets
 .env
@@ -18,6 +19,9 @@ coverage/
 .DS_Store
 .idea/
 .vscode/
+
+# Local visual QA artifacts
+docs/design-concepts/*.png
 
 # Data that must not be committed
 datasets/private/
