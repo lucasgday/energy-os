@@ -137,7 +137,7 @@ git commit -m "chore: add workspace baseline"
 }
 ```
 
-- [ ] **Step 3: Write domain types**
+- [x] **Step 3: Write domain types**
 
 ```ts
 export type WellStatus = "producing" | "injecting" | "shut_in" | "abandoned" | "planned" | "unknown";
@@ -190,7 +190,7 @@ export type Opportunity = {
 };
 ```
 
-- [ ] **Step 4: Write validation helper**
+- [x] **Step 4: Write validation helper**
 
 ```ts
 import Ajv from "ajv";
@@ -210,14 +210,14 @@ export function validateWithSchema<T>(schema: object, value: unknown): T {
 }
 ```
 
-- [ ] **Step 5: Export package API**
+- [x] **Step 5: Export package API**
 
 ```ts
 export type { Deferment, Opportunity, ProductionEvent, Well, WellStatus } from "./types";
 export { validateWithSchema } from "./validation";
 ```
 
-- [ ] **Step 6: Add validation test**
+- [x] **Step 6: Add validation test**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -255,13 +255,15 @@ describe("validateWithSchema", () => {
 });
 ```
 
-- [ ] **Step 7: Run tests**
+- [x] **Step 7: Run tests**
 
 Run: `pnpm --filter @energy-os/domain test`
 
+Actual implementation exports schema-backed validators for wells, production events, deferments, and opportunities, plus `DomainValidationError` with issue paths for importer/debugging use.
+
 Expected: both validation tests pass.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add packages/domain
@@ -570,6 +572,10 @@ Expected: CSV parser tests pass.
 git add packages/data-import
 git commit -m "feat: add CSV import helpers"
 ```
+
+- [x] **Step 7: Wire CSV imports to domain validation**
+
+Follow-up after `@energy-os/domain`: `@energy-os/data-import` now depends on `@energy-os/domain` and exports explicit upstream mappers/importers for wells, production events, deferments, and opportunities. Import helpers preserve each source CSV row and return validated domain values.
 
 ### Task 6: Web App Shell
 

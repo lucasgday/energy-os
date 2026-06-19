@@ -28,18 +28,18 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added public data source documentation for Argentina and U.S. official datasets.
 - Created `#8` to map Argentina Capítulo IV data to Energy OS schemas.
 - Added `@energy-os/economics` for deterministic upstream opportunity economics (`#4`).
-- Added `@energy-os/data-import` for CSV parsing and explicit numeric conversion (`#5`).
+- Added `@energy-os/domain` with schema-backed validators for wells, production events, deferments, and opportunities (`#3`).
+- Added `@energy-os/data-import` for CSV parsing, explicit numeric conversion, and upstream domain-validated imports (`#5`).
 
 ## Pendientes
 
-- Add domain validation package (`#3`).
 - Build the first import and dashboard prototype.
 - Add public issue templates and labels.
 - Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
 
 ## Notes
 
-- `@energy-os/data-import` intentionally does not depend on `@energy-os/domain` yet because `#3` is still open. Wire schema/domain validation into import helpers after `#3` lands.
+- `@energy-os/data-import` now depends on `@energy-os/domain` and returns `{ source, value }` records so downstream UI/import flows can preserve raw public CSV rows while working with validated Energy OS entities.
 
 ## To QA
 
