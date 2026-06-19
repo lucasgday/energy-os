@@ -1,0 +1,14 @@
+{
+  "name": "energy-os",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Open source operating layer for low-headcount upstream energy operations.",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter @energy-os/web dev",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "packageManager": "pnpm@10.0.0"
+}
