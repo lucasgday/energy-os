@@ -18,6 +18,8 @@ Current production demo:
 
 - https://energy-os-demo.vercel.app
 
+For the public demo, Vercel Authentication and Password Protection should stay disabled. The app itself currently has no auth requirement, and protecting the `*.vercel.app` alias forces visitors through a Vercel login before they can see the synthetic-data demo.
+
 ## Vercel Preview
 
 Use preview deployments for early sharing. Do not add production domains or environment secrets until the deployment process is intentionally reviewed.
