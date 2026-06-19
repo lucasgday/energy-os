@@ -13,7 +13,7 @@ The current working slice is a local Next.js production review shell backed by s
 Hosted demo:
 
 ```txt
-https://energy-os-demo.vercel.app
+https://open-energy-os.vercel.app
 ```
 
 Run it locally:

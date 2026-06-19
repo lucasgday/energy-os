@@ -16,7 +16,7 @@ The current public demo is configured as a static Next.js export. `apps/web/next
 
 Current production demo:
 
-- https://energy-os-demo.vercel.app
+- https://open-energy-os.vercel.app
 
 For the public demo, Vercel Authentication and Password Protection should stay disabled. The app itself currently has no auth requirement, and protecting the `*.vercel.app` alias forces visitors through a Vercel login before they can see the synthetic-data demo.
 
