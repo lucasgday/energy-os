@@ -10,6 +10,12 @@ This project is being built in public from day zero. The long-term vision is an 
 
 The current working slice is a local Next.js production review shell backed by synthetic field data. It validates public-safe fixtures, ranks upstream opportunities with deterministic economics, and renders a daily production review workflow.
 
+Hosted demo:
+
+```txt
+https://energy-os-demo.vercel.app
+```
+
 Run it locally:
 
 ```bash

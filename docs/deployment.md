@@ -14,6 +14,10 @@ pnpm --filter @energy-os/web build
 
 The current public demo is configured as a static Next.js export. `apps/web/next.config.ts` writes the deployable output to `apps/web/out`, and `vercel.json` points Vercel at that directory.
 
+Current production demo:
+
+- https://energy-os-demo.vercel.app
+
 ## Vercel Preview
 
 Use preview deployments for early sharing. Do not add production domains or environment secrets until the deployment process is intentionally reviewed.
@@ -42,6 +46,12 @@ Only promote or deploy to production after:
 - The demo uses synthetic or approved public data only.
 - The public README points to a stable URL, not a one-off preview URL.
 - Any future server-rendered, authenticated, or API-backed version intentionally revisits the static export setting.
+
+Production deploy command:
+
+```bash
+vercel deploy --prod -y
+```
 
 ## Data and Secret Rules
 
