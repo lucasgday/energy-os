@@ -12,6 +12,8 @@ pnpm install
 pnpm --filter @energy-os/web build
 ```
 
+The current public demo is configured as a static Next.js export. `apps/web/next.config.ts` writes the deployable output to `apps/web/out`, and `vercel.json` points Vercel at that directory.
+
 ## Vercel Preview
 
 Use preview deployments for early sharing. Do not add production domains or environment secrets until the deployment process is intentionally reviewed.
@@ -24,11 +26,11 @@ vercel deploy -y
 
 If the Vercel project prompts for settings, use:
 
-- Framework: Next.js
+- Framework: Other or static output from the root build command
 - Install command: `pnpm install --frozen-lockfile`
 - Build command: `pnpm --filter @energy-os/web build`
 - Development command: `pnpm --filter @energy-os/web dev`
-- Output: Next.js default output
+- Output directory: `apps/web/out`
 
 ## Production Deployment
 
@@ -39,6 +41,7 @@ Only promote or deploy to production after:
 - `pnpm build` passes.
 - The demo uses synthetic or approved public data only.
 - The public README points to a stable URL, not a one-off preview URL.
+- Any future server-rendered, authenticated, or API-backed version intentionally revisits the static export setting.
 
 ## Data and Secret Rules
 
