@@ -99,7 +99,7 @@ git commit -m "chore: add workspace baseline"
 - Create: `packages/domain/src/validation.ts`
 - Test: `packages/domain/src/validation.test.ts`
 
-- [ ] **Step 1: Create package manifest**
+- [x] **Step 1: Create package manifest**
 
 ```json
 {
@@ -124,7 +124,7 @@ git commit -m "chore: add workspace baseline"
 }
 ```
 
-- [ ] **Step 2: Create package TypeScript config**
+- [x] **Step 2: Create package TypeScript config**
 
 ```json
 {
@@ -310,7 +310,7 @@ git commit -m "feat: add domain validation package"
 }
 ```
 
-- [ ] **Step 3: Write economics functions**
+- [x] **Step 3: Write economics functions**
 
 ```ts
 export type OpportunityEconomicsInput = {
@@ -343,7 +343,7 @@ export function calculateOpportunityEconomics(input: OpportunityEconomicsInput):
 }
 ```
 
-- [ ] **Step 4: Add tests**
+- [x] **Step 4: Add tests**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -379,13 +379,13 @@ describe("calculateOpportunityEconomics", () => {
 });
 ```
 
-- [ ] **Step 5: Run tests**
+- [x] **Step 5: Run tests**
 
 Run: `pnpm --filter @energy-os/economics test`
 
 Expected: both economics tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/economics
@@ -464,7 +464,7 @@ git commit -m "data: add synthetic field dataset"
 - Create: `packages/data-import/src/index.ts`
 - Test: `packages/data-import/src/index.test.ts`
 
-- [ ] **Step 1: Create package manifest**
+- [x] **Step 1: Create package manifest**
 
 ```json
 {
@@ -489,7 +489,7 @@ git commit -m "data: add synthetic field dataset"
 }
 ```
 
-- [ ] **Step 2: Create TypeScript config**
+- [x] **Step 2: Create TypeScript config**
 
 ```json
 {
@@ -502,7 +502,7 @@ git commit -m "data: add synthetic field dataset"
 }
 ```
 
-- [ ] **Step 3: Write CSV parser**
+- [x] **Step 3: Write CSV parser**
 
 ```ts
 import { parse } from "csv-parse/sync";
@@ -529,7 +529,7 @@ export function toNumber(value: string | undefined): number | undefined {
 }
 ```
 
-- [ ] **Step 4: Add parser tests**
+- [x] **Step 4: Add parser tests**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -558,13 +558,13 @@ describe("toNumber", () => {
 });
 ```
 
-- [ ] **Step 5: Run tests**
+- [x] **Step 5: Run tests**
 
 Run: `pnpm --filter @energy-os/data-import test`
 
 Expected: CSV parser tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/data-import
