@@ -30,20 +30,23 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added `@energy-os/economics` for deterministic upstream opportunity economics (`#4`).
 - Added `@energy-os/domain` with schema-backed validators for wells, production events, deferments, and opportunities (`#3`).
 - Added `@energy-os/data-import` for CSV parsing, explicit numeric conversion, and upstream domain-validated imports (`#5`).
+- Added `apps/web`, a Next.js production review shell that loads the synthetic field dataset, validates imports, ranks opportunities with deterministic economics, and shows a read-only daily review workflow (`#6`).
+- Added public GitHub issue templates and type/area/priority labels with explicit public-data reminders (`#7`).
 
 ## Pendientes
 
-- Build the first import and dashboard prototype.
-- Add public issue templates and labels.
 - Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
+- Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
 
 ## Notes
 
 - `@energy-os/data-import` now depends on `@energy-os/domain` and returns `{ source, value }` records so downstream UI/import flows can preserve raw public CSV rows while working with validated Energy OS entities.
+- `apps/web` reads only `datasets/synthetic-field-v0` and does not require auth, cloud services, or real operator data.
 
 ## To QA
 
 - Validate the daily production meeting workflow with production engineers or operators.
+- Manually review the GitHub issue forms in the public repo after push.
 - Review domain terms for petroleum engineering correctness.
 - Confirm that Apache 2.0 is the desired initial license.
 

@@ -37,6 +37,10 @@ The first product scope is **Upstream Production OS**:
 ## Repository Map
 
 ```txt
+.github/
+  ISSUE_TEMPLATE/
+apps/
+  web/
 docs/
   thesis.md
   roadmap.md
@@ -47,6 +51,10 @@ docs/
   build-in-public.md
 datasets/
   synthetic-field-v0/
+packages/
+  domain/
+  data-import/
+  economics/
 schemas/
   wells.schema.json
   production-events.schema.json

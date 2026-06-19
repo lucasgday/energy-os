@@ -1,0 +1,59 @@
+name: Feature or workflow request
+description: Propose a production operations workflow, screen, or package capability.
+title: "[Feature]: "
+labels: ["type:feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use synthetic or approved public data only. Do not include real operator, well, production, pricing, credential, or asset data.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Web app
+        - Domain model
+        - Data import
+        - Economics
+        - Public data mapping
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow or problem
+      description: What should a production engineer or operator be able to do?
+      placeholder: Review daily production variance by well and link material drops to deferments.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: Describe the useful behavior, screen, API, or data artifact.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Synthetic or public example
+      description: Link to synthetic data, public source docs, or a sanitized example. Do not paste private data.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - Uses synthetic-field-v0 data.
+        - Preserves source values.
+        - Links every recommendation to evidence and assumptions.
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Public data policy
+      options:
+        - label: I did not include real production, customer, operator, credential, pricing, or confidential asset data.
+          required: true

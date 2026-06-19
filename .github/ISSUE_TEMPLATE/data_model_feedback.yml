@@ -1,0 +1,48 @@
+name: Data or domain modeling feedback
+description: Propose a schema, mapping, units, or petroleum-domain correction.
+title: "[Data/Model]: "
+labels: ["type:data-modeling", "area:domain"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This project is public. Share mappings, column names, units, and sanitized examples only. Do not include private well lists, production exports, operator names, or confidential asset context.
+  - type: dropdown
+    id: entity
+    attributes:
+      label: Energy OS entity
+      options:
+        - Well
+        - ProductionEvent
+        - Deferment
+        - Opportunity
+        - Decision
+        - Intervention
+        - Field
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback or proposed mapping
+      description: Include source columns, target fields, units, and transformation notes where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Public source or synthetic example
+      description: Link to an official public source or describe the synthetic example used.
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risks or caveats
+      description: Note licensing, units, ambiguity, missing data, or petroleum terminology concerns.
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Public data policy
+      options:
+        - label: I did not include confidential or private operational data.
+          required: true

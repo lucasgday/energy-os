@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Build-in-public policy
+    url: https://github.com/lucasgday/energy-os/blob/main/docs/build-in-public.md
+    about: Review what can be public before sharing data, examples, or operator context.

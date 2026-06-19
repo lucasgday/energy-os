@@ -587,7 +587,7 @@ Follow-up after `@energy-os/domain`: `@energy-os/data-import` now depends on `@e
 - Create: `apps/web/app/page.tsx`
 - Create: `apps/web/app/globals.css`
 
-- [ ] **Step 1: Create web package manifest**
+- [x] **Step 1: Create web package manifest**
 
 ```json
 {
@@ -617,7 +617,7 @@ Follow-up after `@energy-os/domain`: `@energy-os/data-import` now depends on `@e
 }
 ```
 
-- [ ] **Step 2: Create app TypeScript config**
+- [x] **Step 2: Create app TypeScript config**
 
 ```json
 {
@@ -634,7 +634,7 @@ Follow-up after `@energy-os/domain`: `@energy-os/data-import` now depends on `@e
 }
 ```
 
-- [ ] **Step 3: Create Next config**
+- [x] **Step 3: Create Next config**
 
 ```ts
 import type { NextConfig } from "next";
@@ -644,7 +644,7 @@ const nextConfig: NextConfig = {};
 export default nextConfig;
 ```
 
-- [ ] **Step 4: Create global CSS**
+- [x] **Step 4: Create global CSS**
 
 ```css
 :root {
@@ -674,7 +674,7 @@ main {
 }
 ```
 
-- [ ] **Step 5: Create layout**
+- [x] **Step 5: Create layout**
 
 ```tsx
 import "./globals.css";
@@ -689,7 +689,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 }
 ```
 
-- [ ] **Step 6: Create first page**
+- [x] **Step 6: Create first page**
 
 ```tsx
 const summary = [
@@ -722,47 +722,70 @@ export default function Home() {
 }
 ```
 
-- [ ] **Step 7: Run local build**
+- [x] **Step 7: Run local build**
 
 Run: `pnpm --filter @energy-os/web build`
 
 Expected: Next.js build exits with code 0.
 
-- [ ] **Step 8: Commit**
+Actual implementation loads `datasets/synthetic-field-v0` through `@energy-os/data-import`, validates domain records, ranks opportunities with `@energy-os/economics`, and renders a read-only production review shell with selectable opportunities.
+
+- [x] **Step 8: Commit**
 
 ```bash
 git add apps/web
 git commit -m "feat: add web app shell"
 ```
 
+### Public Issue Templates and Labels
+
+**Files:**
+- Create: `.github/ISSUE_TEMPLATE/config.yml`
+- Create: `.github/ISSUE_TEMPLATE/feature_request.yml`
+- Create: `.github/ISSUE_TEMPLATE/bug_report.yml`
+- Create: `.github/ISSUE_TEMPLATE/data_model_feedback.yml`
+- Create: `.github/labels.yml`
+
+- [x] **Step 1: Add public issue forms**
+
+Feature, bug, and data/modeling issue forms now remind contributors to use only synthetic or approved public data.
+
+- [x] **Step 2: Add label source of truth**
+
+`.github/labels.yml` defines initial `type:*`, `area:*`, and `priority:*` labels.
+
+- [x] **Step 3: Sync labels to GitHub**
+
+Labels were created/updated in the public GitHub repository with `gh label create --force`.
+
 ### Task 7: Final Verification
 
 **Files:**
 - Modify: `docs/agent-handoff.md`
 
-- [ ] **Step 1: Run full checks**
+- [x] **Step 1: Run full checks**
 
 Run: `pnpm test`
 
 Expected: all package tests pass.
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `pnpm typecheck`
 
 Expected: all TypeScript projects pass.
 
-- [ ] **Step 3: Run build**
+- [x] **Step 3: Run build**
 
 Run: `pnpm build`
 
 Expected: all packages and the web app build successfully.
 
-- [ ] **Step 4: Update handoff**
+- [x] **Step 4: Update handoff**
 
 Record completed implementation status, verification commands, remaining manual QA, and blockers in `docs/agent-handoff.md`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add docs/agent-handoff.md

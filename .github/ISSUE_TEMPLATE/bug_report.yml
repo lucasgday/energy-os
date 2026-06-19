@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a reproducible problem in the local workflow, packages, or docs.
+title: "[Bug]: "
+labels: ["type:bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep reports reproducible with synthetic or approved public data. Do not attach private exports or screenshots with real asset data.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Web app
+        - Domain validation
+        - Data import
+        - Economics
+        - Documentation
+        - Repository workflow
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run pnpm test.
+        2. Import synthetic-field-v0 production_events.csv.
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command or screen
+      placeholder: pnpm --filter @energy-os/data-import test
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Public data policy
+      options:
+        - label: I reproduced this with synthetic or approved public data only.
+          required: true

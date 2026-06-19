@@ -1,0 +1,40 @@
+labels:
+  - name: type:feature
+    color: "a2eeef"
+    description: New product, workflow, package, or UI capability.
+  - name: type:bug
+    color: "d73a4a"
+    description: Reproducible incorrect behavior.
+  - name: type:data-modeling
+    color: "5319e7"
+    description: Domain model, schema, units, or public data mapping feedback.
+  - name: type:docs
+    color: "0075ca"
+    description: Documentation, public framing, or build-in-public updates.
+  - name: area:web
+    color: "0e8a16"
+    description: Next.js production review app.
+  - name: area:domain
+    color: "1d76db"
+    description: Domain types, schemas, validation, and petroleum terminology.
+  - name: area:data-import
+    color: "006b75"
+    description: CSV/public data parsing, mapping, and source preservation.
+  - name: area:economics
+    color: "fbca04"
+    description: Opportunity economics, assumptions, ranking, and payout logic.
+  - name: area:public-data
+    color: "c2e0c6"
+    description: Official public datasets and licensing/mapping work.
+  - name: area:docs
+    color: "bfdadc"
+    description: Repository docs, roadmap, thesis, and contributor guidance.
+  - name: priority:p0
+    color: "b60205"
+    description: Blocks current work or creates material public-data/security risk.
+  - name: priority:p1
+    color: "d93f0b"
+    description: Important for the current milestone.
+  - name: priority:p2
+    color: "fbca04"
+    description: Useful but not blocking the current milestone.
