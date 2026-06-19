@@ -35,6 +35,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Expanded the roadmap and product blueprint to include future digital-operator modules: agent-assisted email/document workflows, contracts, procurement, treasury, accounting, sales, confidential commercial workspaces, and approval/audit controls.
 - Added commodity price source guidance: public benchmark scenarios can use EIA WTI, EIA Brent, EIA Henry Hub, and World Bank commodity data; realized prices, contract formulas, hedges, and customer terms remain private workspace inputs.
 - Added a web footer link from the production review shell to the public GitHub repository.
+- Added contributor onboarding docs: README clone/run instructions, `CONTRIBUTING.md`, `docs/contributor-paths.md`, and `docs/deployment.md` for Vercel preview guidance.
 
 ## Pendientes
 
@@ -42,6 +43,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
 - Define a `PriceScenario` schema and connect it to opportunity economics once the importer/domain packages are ready.
 - Define the confidential workspace, permission, approval, and audit model before adding real email, contract, purchasing, payment, or sales workflows.
+- Add a stable hosted demo URL to README after production deployment or domain setup. Avoid committing one-off preview URLs as the primary public demo link.
 
 ## Notes
 
@@ -55,6 +57,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Manually review the GitHub issue forms in the public repo after push.
 - Review domain terms for petroleum engineering correctness.
 - Check the production review footer on desktop and mobile after the next web deployment.
+- Review contributor docs from the perspective of a first-time petroleum engineer and a first-time frontend contributor.
 - Confirm that Apache 2.0 is the desired initial license.
 
 ## Bloqueos/Decisiones
