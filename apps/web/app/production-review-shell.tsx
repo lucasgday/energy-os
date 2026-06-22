@@ -9,8 +9,6 @@ import {
   BookOpen,
   CalendarDays,
   CheckCircle2,
-  ChevronDown,
-  ChevronsLeft,
   ClipboardList,
   Clock3,
   Database,
@@ -19,13 +17,12 @@ import {
   FileText,
   Gauge,
   LineChart,
-  Settings,
   ShieldCheck,
   Waves,
   Wrench,
   Zap
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type {
   DefermentReview,
   OpportunityReview,
@@ -38,15 +35,20 @@ type ProductionReviewShellProps = {
 };
 
 const navItems = [
-  { label: "Overview", icon: Gauge, active: true },
-  { label: "Surveillance", icon: Activity, active: false },
-  { label: "Deferments", icon: ClipboardList, active: false },
-  { label: "Opportunities", icon: LineChart, active: false },
-  { label: "Decision Journal", icon: BookOpen, active: false },
-  { label: "Data Sources", icon: Database, active: false }
-];
+  { label: "Overview", icon: Gauge, sectionId: "overview" },
+  { label: "Surveillance", icon: Activity, sectionId: "surveillance" },
+  { label: "Deferments", icon: ClipboardList, sectionId: "deferments" },
+  { label: "Opportunities", icon: LineChart, sectionId: "opportunities" },
+  { label: "Decision Journal", icon: BookOpen, sectionId: "journal" },
+  { label: "Data Sources", icon: Database, sectionId: "data-sources" }
+] as const;
+
+type SectionId = (typeof navItems)[number]["sectionId"];
+
+const sectionIds = navItems.map((item) => item.sectionId);
 
 export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
+  const [activeSection, setActiveSection] = useState<SectionId>("overview");
   const [selectedOpportunityId, setSelectedOpportunityId] = useState(
     review.opportunities[0]?.opportunity_id ?? ""
   );
@@ -57,6 +59,37 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
       ) ?? review.opportunities[0],
     [review.opportunities, selectedOpportunityId]
   );
+  const scrollToSection = useCallback((sectionId: SectionId) => {
+    const section = document.getElementById(sectionId);
+
+    if (section === null) {
+      return;
+    }
+
+    setActiveSection(sectionId);
+    window.history.replaceState(null, "", `#${sectionId}`);
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  useEffect(() => {
+    const syncActiveSectionFromHash = () => {
+      const hashSectionId = window.location.hash.slice(1);
+
+      if (isSectionId(hashSectionId)) {
+        setActiveSection(hashSectionId);
+      }
+    };
+
+    syncActiveSectionFromHash();
+
+    window.addEventListener("hashchange", syncActiveSectionFromHash);
+    window.addEventListener("popstate", syncActiveSectionFromHash);
+
+    return () => {
+      window.removeEventListener("hashchange", syncActiveSectionFromHash);
+      window.removeEventListener("popstate", syncActiveSectionFromHash);
+    };
+  }, []);
 
   return (
     <div className="app-shell">
@@ -71,16 +104,22 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
         <nav className="nav-list" aria-label="Primary">
           {navItems.map((item) => {
             const Icon = item.icon;
+            const isActive = item.sectionId === activeSection;
+
             return (
-              <button
-                className={item.active ? "nav-item active" : "nav-item"}
-                type="button"
+              <a
+                className={isActive ? "nav-item active" : "nav-item"}
+                href={`#${item.sectionId}`}
                 key={item.label}
-                aria-current={item.active ? "page" : undefined}
+                aria-current={isActive ? "page" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  scrollToSection(item.sectionId);
+                }}
               >
                 <Icon size={18} />
                 <span>{item.label}</span>
-              </button>
+              </a>
             );
           })}
         </nav>
@@ -88,104 +127,106 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
         <div className="sidebar-footer">
           <div className="field-control">
             <span>Field</span>
-            <button type="button">
-              {review.field.name}
-              <ChevronDown size={16} />
-            </button>
+            <div className="field-chip">{review.field.name}</div>
           </div>
           <div className="data-stamp">
             <span>Data as of</span>
             <strong>{formatDate(review.field.latestProductionDate)}</strong>
           </div>
-          <button className="collapse-button" type="button">
-            <ChevronsLeft size={18} />
-            <span>Collapse</span>
-          </button>
         </div>
       </aside>
 
       <main className="workspace">
-        <header className="topbar">
-          <div>
-            <p className="screen-label">Upstream production review</p>
-            <h1>{review.field.name}</h1>
-          </div>
-          <div className="topbar-meta" aria-label="Review metadata">
-            <span>
-              <CalendarDays size={16} />
-              {formatDate(review.field.latestProductionDate)}
-            </span>
-            <span>
-              <Clock3 size={16} />
-              Local synthetic data
-            </span>
-            <span>
-              <Bell size={16} />
-              {review.summary.openDeferments} open
-            </span>
-            <span className="avatar">PE</span>
-          </div>
-        </header>
+        <section className="nav-section overview-section" id="overview">
+          <header className="topbar">
+            <div>
+              <p className="screen-label">Upstream production review</p>
+              <h1>{review.field.name}</h1>
+            </div>
+            <div className="topbar-meta" aria-label="Review metadata">
+              <span>
+                <CalendarDays size={16} />
+                {formatDate(review.field.latestProductionDate)}
+              </span>
+              <span>
+                <Clock3 size={16} />
+                Local synthetic data
+              </span>
+              <span>
+                <Bell size={16} />
+                {review.summary.openDeferments} open
+              </span>
+              <span className="avatar">PE</span>
+            </div>
+          </header>
 
-        <section className="summary-strip" aria-label="Field summary">
-          <HealthGauge score={review.field.healthScore} />
-          <Metric
-            icon={<Droplet size={18} />}
-            label="Oil"
-            value={`${formatNumber(review.summary.latestOilVolume)} bbl/d`}
-            delta={review.summary.oilDelta}
-            suffix="bbl/d"
-          />
-          <Metric
-            icon={<Zap size={18} />}
-            label="Gas"
-            value={`${formatNumber(review.summary.latestGasVolume)} Mcf/d`}
-            delta={review.summary.gasDelta}
-            suffix="Mcf/d"
-          />
-          <Metric
-            icon={<Waves size={18} />}
-            label="Water"
-            value={`${formatNumber(review.summary.latestWaterVolume)} bbl/d`}
-            delta={review.summary.waterDelta}
-            suffix="bbl/d"
-            inverse
-          />
-          <Metric
-            icon={<Activity size={18} />}
-            label="Avg uptime"
-            value={`${review.summary.averageUptimeHours.toFixed(1)} h`}
-            detail="24 h period"
-          />
-          <Metric
-            icon={<ArrowUpRight size={18} />}
-            label="Ranked opps"
-            value={String(review.summary.rankedOpportunities)}
-            detail="deterministic economics"
-          />
+          <section className="summary-strip" aria-label="Field summary">
+            <HealthGauge score={review.field.healthScore} />
+            <Metric
+              icon={<Droplet size={18} />}
+              label="Oil"
+              value={`${formatNumber(review.summary.latestOilVolume)} bbl/d`}
+              delta={review.summary.oilDelta}
+              suffix="bbl/d"
+            />
+            <Metric
+              icon={<Zap size={18} />}
+              label="Gas"
+              value={`${formatNumber(review.summary.latestGasVolume)} Mcf/d`}
+              delta={review.summary.gasDelta}
+              suffix="Mcf/d"
+            />
+            <Metric
+              icon={<Waves size={18} />}
+              label="Water"
+              value={`${formatNumber(review.summary.latestWaterVolume)} bbl/d`}
+              delta={review.summary.waterDelta}
+              suffix="bbl/d"
+              inverse
+            />
+            <Metric
+              icon={<Activity size={18} />}
+              label="Avg uptime"
+              value={`${review.summary.averageUptimeHours.toFixed(1)} h`}
+              detail="24 h period"
+            />
+            <Metric
+              icon={<ArrowUpRight size={18} />}
+              label="Ranked opps"
+              value={String(review.summary.rankedOpportunities)}
+              detail="deterministic economics"
+            />
+          </section>
         </section>
 
         <div className="content-grid">
-          <section className="panel well-panel">
+          <section className="panel well-panel nav-section" id="surveillance">
             <PanelHeader
               title="Well surveillance"
               count={`${review.wells.length} wells`}
               action="View wells"
+              onAction={() => scrollToSection("surveillance")}
             />
             <WellTable wells={review.wells} />
           </section>
 
-          <section className="panel deferment-panel">
+          <section className="panel deferment-panel nav-section" id="deferments">
             <PanelHeader
               title="Deferments"
               count={`${review.summary.openDeferments} open`}
               action="View log"
+              onAction={() => scrollToSection("deferments")}
             />
             <DefermentTable deferments={review.deferments} />
           </section>
 
-          <section className="panel journal-panel">
-            <PanelHeader title="Decision journal" count="Latest" action="Open journal" />
+          <section className="panel journal-panel nav-section" id="journal">
+            <PanelHeader
+              title="Decision journal"
+              count="Latest"
+              action="Open journal"
+              onAction={() => scrollToSection("journal")}
+            />
             <div className="journal-list">
               {review.journal.slice(0, 5).map((entry) => (
                 <article className="journal-row" key={entry.id}>
@@ -207,11 +248,12 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
             </div>
           </section>
 
-          <section className="panel opportunities-panel">
+          <section className="panel opportunities-panel nav-section" id="opportunities">
             <PanelHeader
               title="Top opportunities"
               count={`${review.opportunities.length}`}
               action="View all"
+              onAction={() => scrollToSection("opportunities")}
             />
             <div className="opportunity-list">
               {review.opportunities.map((opportunity, index) => (
@@ -246,6 +288,11 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
               <SelectedOpportunity opportunity={selectedOpportunity} review={review} />
             )}
           </section>
+
+          <section className="panel data-sources-panel nav-section" id="data-sources">
+            <PanelHeader title="Data sources" count="Public-safe" />
+            <DataSourcesPanel review={review} />
+          </section>
         </div>
 
         <footer className="app-footer">
@@ -260,17 +307,29 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
   );
 }
 
-function PanelHeader({ title, count, action }: { title: string; count: string; action: string }) {
+function PanelHeader({
+  title,
+  count,
+  action,
+  onAction
+}: {
+  title: string;
+  count: string;
+  action?: string;
+  onAction?: () => void;
+}) {
   return (
     <div className="panel-header">
       <div>
         <h2>{title}</h2>
         <span>{count}</span>
       </div>
-      <button type="button" className="ghost-action">
-        {action}
-        <ExternalLink size={15} />
-      </button>
+      {action !== undefined && onAction !== undefined ? (
+        <button type="button" className="ghost-action" onClick={onAction}>
+          {action}
+          <ArrowUpRight size={15} />
+        </button>
+      ) : null}
     </div>
   );
 }
@@ -460,11 +519,11 @@ function SelectedOpportunity({
       </div>
 
       <div className="selected-actions">
-        <button type="button" className="primary-action">
+        <button type="button" className="primary-action" disabled>
           <Wrench size={17} />
           Create action
         </button>
-        <button type="button" className="icon-action" aria-label="Bookmark opportunity">
+        <button type="button" className="icon-action" aria-label="Bookmark opportunity" disabled>
           <ShieldCheck size={17} />
         </button>
       </div>
@@ -491,6 +550,38 @@ function EmptyOpportunity() {
   );
 }
 
+function DataSourcesPanel({ review }: { review: ProductionReview }) {
+  return (
+    <div className="source-list">
+      <article className="source-row">
+        <div>
+          <strong>Synthetic field dataset</strong>
+          <span>datasets/synthetic-field-v0</span>
+        </div>
+        <span className="source-status">local</span>
+      </article>
+      <article className="source-row">
+        <div>
+          <strong>Validated entities</strong>
+          <span>{review.wells.length} wells · {review.deferments.length} deferments</span>
+        </div>
+        <span className="source-status">schema-backed</span>
+      </article>
+      <article className="source-row">
+        <div>
+          <strong>Economics assumptions</strong>
+          <span>
+            {formatCurrency(review.assumptions.oilPriceUsdPerBbl)}/bbl ·{" "}
+            {formatCurrency(review.assumptions.gasPriceUsdPerMcf)}/Mcf ·{" "}
+            {review.assumptions.upliftDurationDays} days
+          </span>
+        </div>
+        <span className="source-status">explicit</span>
+      </article>
+    </div>
+  );
+}
+
 function StatusPill({ label, status }: { label: string; status: WellReview["status"] }) {
   const className =
     status === "producing" || status === "injecting" ? "status-pill ok" : "status-pill warning";
@@ -513,6 +604,10 @@ function AlertCount({ count }: { count: number }) {
       {count}
     </span>
   );
+}
+
+function isSectionId(value: string): value is SectionId {
+  return sectionIds.includes(value as SectionId);
 }
 
 function liftLabel(value: WellReview["artificial_lift_type"]) {

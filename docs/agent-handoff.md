@@ -42,11 +42,13 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Promoted the Vercel deployment to production and assigned the stable public alias `https://open-energy-os.vercel.app`. The shorter `energy-os.vercel.app` and `energyos.vercel.app` aliases are already in use.
 - Disabled Vercel Authentication and Password Protection for the public demo alias so `https://open-energy-os.vercel.app` is reachable without a Vercel login.
 - Fixed the well status pill alignment in the production review table by keeping table helper text block-scoped while preserving inline-flex badge layout.
+- Added navigation v0 to the web shell: sidebar links and panel actions now navigate to in-page sections for overview, surveillance, deferments, opportunities, journal, and data sources.
 
 ## Pendientes
 
 - Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
 - Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
+- Replace the in-page navigation with full routes only when separate workflows need their own URL, loading state, or data boundary.
 - Define a `PriceScenario` schema and connect it to opportunity economics once the importer/domain packages are ready.
 - Define the confidential workspace, permission, approval, and audit model before adding real email, contract, purchasing, payment, or sales workflows.
 - Keep `https://open-energy-os.vercel.app` as the public demo URL until an owned domain is selected.
@@ -69,6 +71,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Review contributor docs from the perspective of a first-time petroleum engineer and a first-time frontend contributor.
 - Confirm the public demo opens directly without a Vercel login after any future Vercel project protection changes.
 - Recheck the well status pill alignment after future table or badge layout changes.
+- Recheck sidebar navigation, hash links, and the Data Sources panel after future layout changes.
 - Confirm that Apache 2.0 is the desired initial license.
 
 ## Bloqueos/Decisiones

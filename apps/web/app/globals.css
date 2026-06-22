@@ -62,7 +62,7 @@ button {
 
 .brand,
 .nav-item,
-.field-control button,
+.field-chip,
 .collapse-button,
 .topbar-meta span,
 .metric-label,
@@ -106,6 +106,7 @@ button {
   border: 1px solid transparent;
   border-radius: 7px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .nav-item:hover,
@@ -141,7 +142,7 @@ button {
   font-size: 12px;
 }
 
-.field-control button {
+.field-chip {
   justify-content: space-between;
   width: 100%;
   height: 40px;
@@ -150,6 +151,7 @@ button {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--sidebar-line);
   border-radius: 7px;
+  font-weight: 720;
 }
 
 .data-stamp strong {
@@ -168,6 +170,10 @@ button {
 .workspace {
   min-width: 0;
   padding: 22px 22px 78px;
+}
+
+.nav-section {
+  scroll-margin-top: 18px;
 }
 
 .topbar {
@@ -376,6 +382,10 @@ h3 {
   padding: 18px;
 }
 
+.data-sources-panel {
+  grid-column: 2 / 4;
+}
+
 .panel-header {
   display: flex;
   align-items: center;
@@ -409,6 +419,12 @@ h3 {
   cursor: pointer;
   font-size: 13px;
   font-weight: 720;
+}
+
+.ghost-action:hover,
+.ghost-action:focus-visible {
+  color: var(--accent);
+  outline: none;
 }
 
 .table-scroll {
@@ -717,6 +733,52 @@ h3 {
   border: 1px solid var(--line-strong);
 }
 
+.primary-action:disabled,
+.icon-action:disabled {
+  color: var(--muted);
+  background: var(--surface-muted);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.primary-action:disabled:hover,
+.primary-action:disabled:focus-visible {
+  background: var(--surface-muted);
+}
+
+.source-list {
+  display: grid;
+}
+
+.source-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.source-row div {
+  display: grid;
+  gap: 3px;
+}
+
+.source-row span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.source-status {
+  justify-self: end;
+  padding: 3px 7px;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-radius: 6px;
+  font-weight: 720;
+}
+
 .empty-state {
   display: grid;
   place-items: center;
@@ -792,7 +854,8 @@ h3 {
   .journal-panel,
   .deferment-panel,
   .opportunities-panel,
-  .selected-panel {
+  .selected-panel,
+  .data-sources-panel {
     grid-column: auto;
   }
 
@@ -878,7 +941,12 @@ h3 {
 
   .deferment-row,
   .opportunity-row,
-  .detail-grid {
+  .detail-grid,
+  .source-row {
     grid-template-columns: 1fr;
+  }
+
+  .source-status {
+    justify-self: start;
   }
 }
