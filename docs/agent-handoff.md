@@ -45,13 +45,13 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added navigation v0 to the web shell: sidebar links and panel actions now navigate to in-page sections for overview, surveillance, deferments, opportunities, journal, and data sources.
 - Converted the roadmap into a status-tracked roadmap with `[done]`, `[partial]`, `[next]`, `[planned]`, and `[later]` markers plus a near-term Phase 1 sequence.
 - Closed Phase 0 in the roadmap by moving practitioner validation into Phase 1 as a non-blocking parallel validation track.
+- Added a client-side CSV import preview to the web shell for wells, production events, and deferments. It preserves source columns, validates rows through existing import/domain packages, reports row-level valid/error counts, and does not persist records.
 
 ## Pendientes
 
 - Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
-- Add CSV import preview to the web shell as the next Phase 1 implementation task.
 - Collect practitioner feedback on the daily production workflow, domain terms, and synthetic-data realism as Phase 1 validation input, not as a development blocker.
-- Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
+- Extend the web shell beyond read-only review: apply imported preview rows to the local review state, persisted decision journal, and richer variance/deferment logic.
 - Replace the in-page navigation with full routes only when separate workflows need their own URL, loading state, or data boundary.
 - Define a `PriceScenario` schema and connect it to opportunity economics once the importer/domain packages are ready.
 - Formalize carry-over JSON schemas for `Completion`, `Intervention`, `Cost`, and `Decision` after the import preview and decision journal clarify required fields.
@@ -77,6 +77,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Confirm the public demo opens directly without a Vercel login after any future Vercel project protection changes.
 - Recheck the well status pill alignment after future table or badge layout changes.
 - Recheck sidebar navigation, hash links, and the Data Sources panel after future layout changes.
+- Recheck the CSV import preview with public-safe wells, production events, and deferments CSVs, including invalid row cases.
 - Confirm that Apache 2.0 is the desired initial license.
 
 ## Bloqueos/Decisiones

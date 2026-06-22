@@ -18,11 +18,25 @@ import {
   Gauge,
   LineChart,
   ShieldCheck,
+  Upload,
   Waves,
   Wrench,
   Zap
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type ReactNode
+} from "react";
+import {
+  previewCsvImport,
+  type ImportEntityType,
+  type ImportPreview,
+  type ImportPreviewRecord
+} from "../lib/import-preview";
 import type {
   DefermentReview,
   OpportunityReview,
@@ -36,6 +50,7 @@ type ProductionReviewShellProps = {
 
 const navItems = [
   { label: "Overview", icon: Gauge, sectionId: "overview" },
+  { label: "Import", icon: Upload, sectionId: "import" },
   { label: "Surveillance", icon: Activity, sectionId: "surveillance" },
   { label: "Deferments", icon: ClipboardList, sectionId: "deferments" },
   { label: "Opportunities", icon: LineChart, sectionId: "opportunities" },
@@ -47,11 +62,44 @@ type SectionId = (typeof navItems)[number]["sectionId"];
 
 const sectionIds = navItems.map((item) => item.sectionId);
 
+const importEntityOptions = [
+  {
+    type: "wells",
+    label: "Wells",
+    expectedColumns: ["well_id", "field_id", "name", "well_type", "status"]
+  },
+  {
+    type: "production_events",
+    label: "Production",
+    expectedColumns: [
+      "production_event_id",
+      "well_id",
+      "production_date",
+      "oil_volume",
+      "gas_volume"
+    ]
+  },
+  {
+    type: "deferments",
+    label: "Deferments",
+    expectedColumns: ["deferment_id", "well_id", "started_at", "category", "status"]
+  }
+] satisfies Array<{
+  type: ImportEntityType;
+  label: string;
+  expectedColumns: string[];
+}>;
+
 export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
   const [activeSection, setActiveSection] = useState<SectionId>("overview");
   const [selectedOpportunityId, setSelectedOpportunityId] = useState(
     review.opportunities[0]?.opportunity_id ?? ""
   );
+  const [importEntityType, setImportEntityType] = useState<ImportEntityType>("wells");
+  const [importCsvText, setImportCsvText] = useState("");
+  const [importFileName, setImportFileName] = useState("");
+  const [importPreview, setImportPreview] = useState<ImportPreview | undefined>(undefined);
+  const [importError, setImportError] = useState<string | undefined>(undefined);
   const selectedOpportunity = useMemo(
     () =>
       review.opportunities.find(
@@ -59,6 +107,50 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
       ) ?? review.opportunities[0],
     [review.opportunities, selectedOpportunityId]
   );
+  const selectedImportOption =
+    importEntityOptions.find((option) => option.type === importEntityType) ??
+    importEntityOptions[0]!;
+  const updateImportPreview = useCallback((entityType: ImportEntityType, csv: string) => {
+    try {
+      setImportPreview(previewCsvImport(entityType, csv));
+      setImportError(undefined);
+    } catch (error) {
+      setImportPreview(undefined);
+      setImportError(error instanceof Error ? error.message : "Unknown CSV import error");
+    }
+  }, []);
+  const handleImportTypeChange = useCallback(
+    (entityType: ImportEntityType) => {
+      setImportEntityType(entityType);
+
+      if (importCsvText.trim() !== "") {
+        updateImportPreview(entityType, importCsvText);
+      }
+    },
+    [importCsvText, updateImportPreview]
+  );
+  const handleImportFileChange = useCallback(
+    async (event: ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+
+      if (file === undefined) {
+        return;
+      }
+
+      const csv = await file.text();
+      setImportFileName(file.name);
+      setImportCsvText(csv);
+      updateImportPreview(importEntityType, csv);
+      event.target.value = "";
+    },
+    [importEntityType, updateImportPreview]
+  );
+  const clearImportPreview = useCallback(() => {
+    setImportCsvText("");
+    setImportFileName("");
+    setImportPreview(undefined);
+    setImportError(undefined);
+  }, []);
   const scrollToSection = useCallback((sectionId: SectionId) => {
     const section = document.getElementById(sectionId);
 
@@ -200,6 +292,23 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
         </section>
 
         <div className="content-grid">
+          <section className="panel import-panel nav-section" id="import">
+            <PanelHeader
+              title="CSV import preview"
+              count={importPreview === undefined ? "Local" : `${importPreview.validRecords.length} valid`}
+            />
+            <ImportPreviewPanel
+              entityType={importEntityType}
+              fileName={importFileName}
+              importError={importError}
+              preview={importPreview}
+              selectedOption={selectedImportOption}
+              onClear={clearImportPreview}
+              onFileChange={handleImportFileChange}
+              onTypeChange={handleImportTypeChange}
+            />
+          </section>
+
           <section className="panel well-panel nav-section" id="surveillance">
             <PanelHeader
               title="Well surveillance"
@@ -307,6 +416,216 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
   );
 }
 
+function ImportPreviewPanel({
+  entityType,
+  fileName,
+  importError,
+  preview,
+  selectedOption,
+  onClear,
+  onFileChange,
+  onTypeChange
+}: {
+  entityType: ImportEntityType;
+  fileName: string;
+  importError: string | undefined;
+  preview: ImportPreview | undefined;
+  selectedOption: (typeof importEntityOptions)[number];
+  onClear: () => void;
+  onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onTypeChange: (entityType: ImportEntityType) => void;
+}) {
+  return (
+    <div className="import-preview">
+      <div className="import-toolbar">
+        <div className="segmented-control" aria-label="CSV import type">
+          {importEntityOptions.map((option) => (
+            <button
+              type="button"
+              className={option.type === entityType ? "segment active" : "segment"}
+              key={option.type}
+              onClick={() => onTypeChange(option.type)}
+              aria-pressed={option.type === entityType}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="import-actions">
+          <label className="file-action">
+            <Upload size={16} />
+            Choose CSV
+            <input
+              className="sr-only"
+              type="file"
+              accept=".csv,text/csv"
+              onChange={onFileChange}
+            />
+          </label>
+          {preview !== undefined || importError !== undefined ? (
+            <button type="button" className="secondary-action" onClick={onClear}>
+              Clear
+            </button>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="import-warning">
+        <ShieldCheck size={16} />
+        <span>Public-safe CSV only. Local preview does not persist records.</span>
+      </div>
+
+      <div className="expected-columns">
+        <span>Expected columns</span>
+        <div>
+          {selectedOption.expectedColumns.map((column) => (
+            <code key={column}>{column}</code>
+          ))}
+        </div>
+      </div>
+
+      {importError !== undefined ? (
+        <div className="import-error">
+          <AlertTriangle size={17} />
+          <span>{importError}</span>
+        </div>
+      ) : null}
+
+      {preview === undefined ? (
+        <div className="empty-import">
+          <strong>No CSV loaded</strong>
+          <span>{fileName === "" ? "Choose a file to inspect rows." : fileName}</span>
+        </div>
+      ) : (
+        <ImportPreviewResults preview={preview} fileName={fileName} />
+      )}
+    </div>
+  );
+}
+
+function ImportPreviewResults({
+  preview,
+  fileName
+}: {
+  preview: ImportPreview;
+  fileName: string;
+}) {
+  const validRows = preview.validRecords.slice(0, 5);
+  const errorRows = preview.errors.slice(0, 5);
+
+  return (
+    <div className="import-results">
+      <div className="import-summary">
+        <ImportStat label="File" value={fileName || "CSV"} />
+        <ImportStat label="Rows" value={String(preview.totalRows)} />
+        <ImportStat label="Valid" value={String(preview.validRecords.length)} />
+        <ImportStat
+          label="Issues"
+          value={String(preview.errors.length)}
+          tone={preview.errors.length === 0 ? "ok" : "warning"}
+        />
+        <ImportStat label="Columns" value={String(preview.sourceColumns.length)} />
+      </div>
+
+      <div className="source-columns">
+        {preview.sourceColumns.map((column) => (
+          <code key={column}>{column}</code>
+        ))}
+      </div>
+
+      <div className="preview-tables">
+        <PreviewTable
+          title="Valid rows"
+          count={preview.validRecords.length}
+          columns={["Row", "ID", "Well", "Signal"]}
+        >
+          {validRows.length === 0 ? (
+            <tr>
+              <td colSpan={4}>No valid rows yet.</td>
+            </tr>
+          ) : (
+            validRows.map((record) => (
+              <tr key={`${record.rowNumber}-${recordId(record)}`}>
+                <td>{record.rowNumber}</td>
+                <td>{recordId(record)}</td>
+                <td>{recordWell(record)}</td>
+                <td>{recordSignal(record)}</td>
+              </tr>
+            ))
+          )}
+        </PreviewTable>
+
+        <PreviewTable title="Issues" count={preview.errors.length} columns={["Row", "ID", "Message"]}>
+          {errorRows.length === 0 ? (
+            <tr>
+              <td colSpan={3}>No row-level issues.</td>
+            </tr>
+          ) : (
+            errorRows.map((error) => (
+              <tr key={`${error.rowNumber}-${error.message}`}>
+                <td>{error.rowNumber}</td>
+                <td>{sourceRowId(error.source)}</td>
+                <td>{error.message}</td>
+              </tr>
+            ))
+          )}
+        </PreviewTable>
+      </div>
+    </div>
+  );
+}
+
+function ImportStat({
+  label,
+  value,
+  tone
+}: {
+  label: string;
+  value: string;
+  tone?: "ok" | "warning";
+}) {
+  return (
+    <div className={tone === undefined ? "import-stat" : `import-stat ${tone}`}>
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function PreviewTable({
+  title,
+  count,
+  columns,
+  children
+}: {
+  title: string;
+  count: number;
+  columns: string[];
+  children: ReactNode;
+}) {
+  return (
+    <div className="preview-table-block">
+      <div className="preview-table-title">
+        <h3>{title}</h3>
+        <span>{count}</span>
+      </div>
+      <div className="table-scroll">
+        <table className="preview-table">
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th key={column}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>{children}</tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function PanelHeader({
   title,
   count,
@@ -359,7 +678,7 @@ function Metric({
   detail,
   inverse = false
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   value: string;
   delta?: number;
@@ -604,6 +923,49 @@ function AlertCount({ count }: { count: number }) {
       {count}
     </span>
   );
+}
+
+function recordId(record: ImportPreviewRecord) {
+  return sourceRowId(record.source);
+}
+
+function recordWell(record: ImportPreviewRecord) {
+  if ("well_id" in record.value) {
+    return record.value.well_id;
+  }
+
+  return record.source.well_id ?? "-";
+}
+
+function recordSignal(record: ImportPreviewRecord) {
+  const value = record.value;
+
+  if ("production_event_id" in value) {
+    return `${value.production_date} · ${formatNumber(value.oil_volume ?? 0)} oil`;
+  }
+
+  if ("deferment_id" in value) {
+    return `${value.category} · ${value.status}`;
+  }
+
+  return `${value.name} · ${wellStatusLabel(value.status)}`;
+}
+
+function sourceRowId(source: Record<string, string>) {
+  return (
+    source.production_event_id ??
+    source.deferment_id ??
+    source.well_id ??
+    source.id ??
+    "-"
+  );
+}
+
+function wellStatusLabel(status: string) {
+  return status
+    .split("_")
+    .map((word) => word[0]?.toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 function isSectionId(value: string): value is SectionId {

@@ -16,9 +16,9 @@ Current stage: Phase 1, Hybrid MVP. Phase 0 is closed.
 
 Near-term sequence:
 
-1. Add CSV import preview to the web shell.
-2. Map Argentina Capitulo IV data to Energy OS schemas.
-3. Add `PriceScenario` v0 and connect it to opportunity economics.
+1. Map Argentina Capitulo IV data to Energy OS schemas.
+2. Add `PriceScenario` v0 and connect it to opportunity economics.
+3. Extend import preview toward a usable local import workflow.
 4. Add persisted decision journal only after import preview is useful.
 
 Parallel validation track:
@@ -60,7 +60,7 @@ Exit criteria:
 Stage: current.
 
 - `[partial]` Import CSV or Excel files for wells, production, downtime, and costs.
-  Current state: `@energy-os/data-import` parses CSV and validates domain records. The web app still needs client-side import preview. Excel and cost imports are not started.
+  Current state: `@energy-os/data-import` parses CSV and validates domain records. The web app has a client-side CSV import preview for wells, production events, and deferments. Excel, cost imports, and applying imported rows to the active review are not started.
 - `[partial]` Show field and well dashboards.
   Current state: public Next.js shell shows field summary, well surveillance, deferments, opportunities, selected opportunity detail, data sources, and in-page navigation.
 - `[partial]` Record deferments and interventions.
@@ -85,8 +85,8 @@ Exit criteria:
 
 Next Phase 1 tasks:
 
-- `[next]` Add CSV import preview to the web shell.
-  Scope: client-side only, no persistence, public-safe warning, wells / production events / deferments, validation using existing packages.
+- `[done]` Add CSV import preview to the web shell.
+  Current state: client-side only, no persistence, public-safe warning, wells / production events / deferments, validation using existing packages, row-level valid/error preview.
 - `[next]` Map Argentina Capitulo IV data to `Well` and `ProductionEvent` schemas.
   Scope: mapping notes, unit conversion decisions, source-column preservation, no bulk raw-data commit until reuse terms are reviewed.
 - `[next]` Add `PriceScenario` v0.
