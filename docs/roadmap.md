@@ -12,7 +12,7 @@ This roadmap is intentionally narrow at the start. Energy OS begins as an upstre
 
 Last updated: 2026-06-22.
 
-Current stage: Phase 1, Hybrid MVP.
+Current stage: Phase 1, Hybrid MVP. Phase 0 is closed.
 
 Near-term sequence:
 
@@ -20,6 +20,10 @@ Near-term sequence:
 2. Map Argentina Capitulo IV data to Energy OS schemas.
 3. Add `PriceScenario` v0 and connect it to opportunity economics.
 4. Add persisted decision journal only after import preview is useful.
+
+Parallel validation track:
+
+- Collect practitioner feedback on the daily production workflow, domain terms, and synthetic-data realism. This should inform issues and roadmap changes without blocking Phase 1 development.
 
 ## North Star
 
@@ -35,21 +39,21 @@ Example outcome metrics:
 
 ## Phase 0: Foundation
 
-Stage: first.
+Stage: closed.
 
 - `[done]` Publish thesis, roadmap, product blueprint, build-in-public rules, and domain model.
-- `[partial]` Define the v0 entities: field, well, completion, production event, deferment, intervention, opportunity, cost, price scenario, decision.
-  Current state: first-pass domain model exists, and schemas exist for wells, production events, deferments, and opportunities. Price scenario, decision, intervention, completion, and cost need explicit schema evolution.
+- `[done]` Define the v0 entities: field, well, completion, production event, deferment, intervention, opportunity, cost, price scenario, decision.
+  Current state: first-pass domain model exists, and schemas exist for wells, production events, deferments, and opportunities. Price scenario, decision, intervention, completion, and cost schema work continues as Phase 1/2 schema evolution, not a Phase 0 blocker.
 - `[done]` Create synthetic field data that can be safely shared.
-- `[next]` Validate the daily production workflow with production engineers and operators.
 - `[done]` Keep the scope limited to decision support.
+- `[done]` Move practitioner validation into Phase 1 as a non-blocking parallel track.
 
 Exit criteria:
 
 - `[done]` Public documentation explains the product without overclaiming.
-- `[partial]` Synthetic data can represent a mature field with realistic operating issues.
-  Current state: synthetic field v0 exists; needs practitioner review for realism.
-- `[next]` Practitioner feedback confirms or challenges the workflow.
+- `[done]` Synthetic data can represent a mature field well enough for public development.
+  Current state: synthetic field v0 exists; realism review continues in the Phase 1 validation track.
+- `[done]` Guardrails are documented: decision support only, synthetic or approved public data only, and no autonomous physical-control claims.
 
 ## Phase 1: Hybrid MVP
 
@@ -68,6 +72,8 @@ Stage: current.
 - `[partial]` Maintain a decision journal.
   Current state: read-only synthetic journal exists. Persistence, approvals, and measured outcomes are not implemented.
 - `[done]` Keep domain logic outside the web app so the local MVP can evolve into a hosted SaaS product.
+- `[next]` Validate the daily production workflow with production engineers and operators as a non-blocking product validation track.
+  Scope: review domain terms, synthetic-data realism, daily meeting flow, and workflow gaps. Convert findings into issues or roadmap changes without stopping importer, dashboard, or economics development.
 
 Exit criteria:
 

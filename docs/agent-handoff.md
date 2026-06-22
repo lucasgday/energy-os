@@ -44,11 +44,13 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Fixed the well status pill alignment in the production review table by keeping table helper text block-scoped while preserving inline-flex badge layout.
 - Added navigation v0 to the web shell: sidebar links and panel actions now navigate to in-page sections for overview, surveillance, deferments, opportunities, journal, and data sources.
 - Converted the roadmap into a status-tracked roadmap with `[done]`, `[partial]`, `[next]`, `[planned]`, and `[later]` markers plus a near-term Phase 1 sequence.
+- Closed Phase 0 in the roadmap by moving practitioner validation into Phase 1 as a non-blocking parallel validation track.
 
 ## Pendientes
 
 - Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
 - Add CSV import preview to the web shell as the next Phase 1 implementation task.
+- Collect practitioner feedback on the daily production workflow, domain terms, and synthetic-data realism as Phase 1 validation input, not as a development blocker.
 - Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
 - Replace the in-page navigation with full routes only when separate workflows need their own URL, loading state, or data boundary.
 - Define a `PriceScenario` schema and connect it to opportunity economics once the importer/domain packages are ready.
@@ -66,7 +68,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 
 ## To QA
 
-- Validate the daily production meeting workflow with production engineers or operators.
+- Validate the daily production meeting workflow with production engineers or operators when available; treat findings as Phase 1 input rather than a Phase 0 gate.
 - Manually review the GitHub issue forms in the public repo after push.
 - Review domain terms for petroleum engineering correctness.
 - Check the production review footer on desktop and mobile after the next web deployment.
