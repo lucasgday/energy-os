@@ -91,6 +91,8 @@ Next Phase 1 tasks:
   Scope: mapping notes, unit conversion decisions, source-column preservation, no bulk raw-data commit until reuse terms are reviewed.
 - `[next]` Add `PriceScenario` v0.
   Scope: public benchmark assumptions first; private realized prices and contract formulas remain out of the public repo.
+- `[planned]` Formalize carry-over schemas for `Completion`, `Intervention`, `Cost`, and `Decision`.
+  Scope: convert first-pass domain-model entities into JSON schemas after the import preview and decision journal clarify required fields. Keep source values and audit assumptions explicit.
 - `[planned]` Add persisted decision journal.
   Scope: only after import preview clarifies the first useful local workflow.
 

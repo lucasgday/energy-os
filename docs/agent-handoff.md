@@ -54,6 +54,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Extend the web shell beyond read-only review: import flow, persisted decision journal, and richer variance/deferment logic.
 - Replace the in-page navigation with full routes only when separate workflows need their own URL, loading state, or data boundary.
 - Define a `PriceScenario` schema and connect it to opportunity economics once the importer/domain packages are ready.
+- Formalize carry-over JSON schemas for `Completion`, `Intervention`, `Cost`, and `Decision` after the import preview and decision journal clarify required fields.
 - Define the confidential workspace, permission, approval, and audit model before adding real email, contract, purchasing, payment, or sales workflows.
 - Keep `https://open-energy-os.vercel.app` as the public demo URL until an owned domain is selected.
 - Revisit the static export setting when the web app adds auth, APIs, server rendering, or private workspace behavior.
