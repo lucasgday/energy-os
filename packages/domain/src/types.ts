@@ -41,13 +41,25 @@ export type Well = {
 
 export type MeasurementMethod = "metered" | "allocated" | "estimated" | "manual" | "unknown";
 
+export type ProductionPeriodGranularity = "daily" | "monthly" | "periodic" | "unknown";
+
+export type LiquidVolumeUnit = "bbl" | "m3";
+
+export type GasVolumeUnit = "Mcf" | "thousand_m3";
+
 export type ProductionEvent = {
   production_event_id: string;
   well_id: string;
   production_date: string;
+  period_start_date?: string;
+  period_end_date?: string;
+  period_granularity?: ProductionPeriodGranularity;
   oil_volume?: number;
+  oil_volume_unit?: LiquidVolumeUnit;
   gas_volume?: number;
+  gas_volume_unit?: GasVolumeUnit;
   water_volume?: number;
+  water_volume_unit?: LiquidVolumeUnit;
   uptime_hours?: number;
   period_hours?: number;
   measurement_method?: MeasurementMethod;

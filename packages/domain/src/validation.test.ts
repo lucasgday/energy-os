@@ -52,6 +52,32 @@ describe("domain validators", () => {
     ).toThrow(DomainValidationError);
   });
 
+  it("accepts monthly production events with explicit volume units", () => {
+    const event = validateProductionEvent({
+      production_event_id: "argentina-capitulo-iv:well-001:2023-02",
+      well_id: "well-001",
+      production_date: "2023-02-28",
+      period_start_date: "2023-02-01",
+      period_end_date: "2023-02-28",
+      period_granularity: "monthly",
+      oil_volume: 62.8981077,
+      oil_volume_unit: "bbl",
+      gas_volume: 88.28666675,
+      gas_volume_unit: "Mcf",
+      water_volume: 18.86943231,
+      water_volume_unit: "bbl",
+      uptime_hours: 600,
+      period_hours: 672,
+      measurement_method: "unknown",
+      source: "argentina-capitulo-iv"
+    });
+
+    expect(event.period_granularity).toBe("monthly");
+    expect(event.uptime_hours).toBe(600);
+    expect(event.period_hours).toBe(672);
+    expect(event.oil_volume_unit).toBe("bbl");
+  });
+
   it("accepts deferments with ISO timestamps", () => {
     const deferment = validateDeferment({
       deferment_id: "def-001",
@@ -101,11 +127,11 @@ describe("validateWithSchema", () => {
         production_event_id: "pe-001",
         well_id: "well-001",
         production_date: "2026-06-17",
-        uptime_hours: 25
+        period_granularity: "weekly"
       });
     } catch (error) {
       expect(error).toBeInstanceOf(DomainValidationError);
-      expect((error as DomainValidationError).issues[0]?.path).toBe("/uptime_hours");
+      expect((error as DomainValidationError).issues[0]?.path).toBe("/period_granularity");
       return;
     }
 

@@ -47,11 +47,29 @@ export const productionEventSchema = {
     production_event_id: { type: "string", minLength: 1 },
     well_id: { type: "string", minLength: 1 },
     production_date: { type: "string", format: "date" },
+    period_start_date: { type: "string", format: "date" },
+    period_end_date: { type: "string", format: "date" },
+    period_granularity: {
+      type: "string",
+      enum: ["daily", "monthly", "periodic", "unknown"]
+    },
     oil_volume: { type: "number", minimum: 0 },
+    oil_volume_unit: {
+      type: "string",
+      enum: ["bbl", "m3"]
+    },
     gas_volume: { type: "number", minimum: 0 },
+    gas_volume_unit: {
+      type: "string",
+      enum: ["Mcf", "thousand_m3"]
+    },
     water_volume: { type: "number", minimum: 0 },
-    uptime_hours: { type: "number", minimum: 0, maximum: 24 },
-    period_hours: { type: "number", minimum: 0, maximum: 24 },
+    water_volume_unit: {
+      type: "string",
+      enum: ["bbl", "m3"]
+    },
+    uptime_hours: { type: "number", minimum: 0 },
+    period_hours: { type: "number", minimum: 0 },
     measurement_method: {
       type: "string",
       enum: ["metered", "allocated", "estimated", "manual", "unknown"]

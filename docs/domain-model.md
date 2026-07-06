@@ -49,17 +49,28 @@ Important attributes:
 
 ### Production Event
 
-Daily or periodic measured production for a well.
+Measured or reported production for one well over one explicit production period. The period can be daily, monthly, or periodic.
+
+A production event answers: what did this well produce during this period?
+
+It is not a downtime cause, intervention, recommendation, sale, or invoice.
 
 Important attributes:
 
 - `production_event_id`
 - `well_id`
 - `production_date`
+- `period_start_date`
+- `period_end_date`
+- `period_granularity`
 - `oil_volume`
+- `oil_volume_unit`
 - `gas_volume`
+- `gas_volume_unit`
 - `water_volume`
+- `water_volume_unit`
 - `uptime_hours`
+- `period_hours`
 - `source`
 
 ### Deferment

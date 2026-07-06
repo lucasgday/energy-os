@@ -1,12 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { DomainValidationError } from "@energy-os/domain";
 import {
+  importArgentinaCapituloIvProductionRows,
   importDefermentRows,
   importOpportunityRows,
   importProductionEventRows,
   importWellRows,
   parseCsvRows,
   requireString,
+  toDisplayProductionVolume,
   toNumber
 } from "./index";
 
@@ -124,5 +126,49 @@ describe("domain CSV import helpers", () => {
     expect(() =>
       importWellRows("well_id,field_id,name,well_type,status\nwell-001,field-alpha,Alpha-01,producer,flowing\n")
     ).toThrow(DomainValidationError);
+  });
+});
+
+describe("Argentina Capitulo IV import helpers", () => {
+  it("maps monthly public production rows to unit-labeled production events", () => {
+    const [record] = importArgentinaCapituloIvProductionRows(
+      "idpozo,anio,mes,prod_pet,prod_gas,prod_agua,yacimiento,concesion,provincia\n" +
+        "ARG-POZO-001,2023,2,10,2.5,3,Alpha Field,Alpha Concession,Mendoza\n"
+    );
+
+    expect(record?.source.prod_pet).toBe("10");
+    expect(record?.source.prod_gas).toBe("2.5");
+    expect(record?.value).toMatchObject({
+      production_event_id: "argentina-capitulo-iv:ARG-POZO-001:2023-02",
+      well_id: "ARG-POZO-001",
+      production_date: "2023-02-28",
+      period_start_date: "2023-02-01",
+      period_end_date: "2023-02-28",
+      period_granularity: "monthly",
+      period_hours: 672,
+      measurement_method: "unknown",
+      oil_volume_unit: "bbl",
+      gas_volume_unit: "Mcf",
+      water_volume_unit: "bbl",
+      source: "argentina-capitulo-iv"
+    });
+    expect(record?.value.oil_volume).toBeCloseTo(62.8981077);
+    expect(record?.value.gas_volume).toBeCloseTo(88.28666675);
+    expect(record?.value.water_volume).toBeCloseTo(18.86943231);
+  });
+
+  it("converts canonical production volumes for metric display preference", () => {
+    expect(toDisplayProductionVolume("oil", 62.8981077, "metric")).toEqual({
+      value: expect.closeTo(10),
+      unit: "m3"
+    });
+    expect(toDisplayProductionVolume("gas", 88.28666675, "metric")).toEqual({
+      value: expect.closeTo(2.5),
+      unit: "thousand_m3"
+    });
+    expect(toDisplayProductionVolume("water", 18.86943231, "field")).toEqual({
+      value: expect.closeTo(18.86943231),
+      unit: "bbl"
+    });
   });
 });

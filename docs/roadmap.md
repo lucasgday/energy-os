@@ -10,13 +10,13 @@ This roadmap is intentionally narrow at the start. Energy OS begins as an upstre
 - `[planned]` Not started yet.
 - `[later]` Deliberately deferred until earlier phases prove value.
 
-Last updated: 2026-06-22.
+Last updated: 2026-07-06.
 
 Current stage: Phase 1, Hybrid MVP. Phase 0 is closed.
 
 Near-term sequence:
 
-1. Map Argentina Capitulo IV data to Energy OS schemas.
+1. Finish Argentina Capitulo IV mapping by adding the Well-side mapping and web import preset.
 2. Add `PriceScenario` v0 and connect it to opportunity economics.
 3. Extend import preview toward a usable local import workflow.
 4. Add persisted decision journal only after import preview is useful.
@@ -87,8 +87,8 @@ Next Phase 1 tasks:
 
 - `[done]` Add CSV import preview to the web shell.
   Current state: client-side only, no persistence, public-safe warning, wells / production events / deferments, validation using existing packages, row-level valid/error preview.
-- `[next]` Map Argentina Capitulo IV data to `Well` and `ProductionEvent` schemas.
-  Scope: mapping notes, unit conversion decisions, source-column preservation, no bulk raw-data commit until reuse terms are reviewed.
+- `[partial]` Map Argentina Capitulo IV data to `Well` and `ProductionEvent` schemas.
+  Current state: monthly production mapping notes exist, `ProductionEvent` supports monthly periods and explicit volume units, and `@energy-os/data-import` maps synthetic Capitulo IV-shaped rows into unit-labeled production events while preserving source rows. Remaining scope: Well-side mapping, web import preset, official header verification, and no bulk raw-data commit until reuse terms are reviewed.
 - `[next]` Add `PriceScenario` v0.
   Scope: public benchmark assumptions first; private realized prices and contract formulas remain out of the public repo.
 - `[planned]` Formalize carry-over schemas for `Completion`, `Intervention`, `Cost`, and `Decision`.

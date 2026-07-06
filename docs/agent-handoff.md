@@ -46,10 +46,14 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Converted the roadmap into a status-tracked roadmap with `[done]`, `[partial]`, `[next]`, `[planned]`, and `[later]` markers plus a near-term Phase 1 sequence.
 - Closed Phase 0 in the roadmap by moving practitioner validation into Phase 1 as a non-blocking parallel validation track.
 - Added a client-side CSV import preview to the web shell for wells, production events, and deferments. It preserves source columns, validates rows through existing import/domain packages, reports row-level valid/error counts, and does not persist records.
+- Clarified `ProductionEvent` as one well's measured or reported production over an explicit period, not a deferment, intervention, opportunity, sale, or invoice.
+- Extended `ProductionEvent` to support monthly periods and explicit volume units for oil, gas, and water.
+- Added `docs/import-mappings/argentina-capitulo-iv.md` with Capítulo IV mapping notes, unit conversion policy, source preservation rules, and real-data caveats.
+- Added `@energy-os/data-import` support for synthetic Capitulo IV-shaped monthly production rows, converting source metric volumes into unit-labeled canonical field units while preserving source rows.
 
 ## Pendientes
 
-- Map Argentina Capítulo IV data to the Energy OS schema (`#8`).
+- Finish Argentina Capítulo IV mapping (`#8`): Well-side mapping, web import preset, official header verification, and license/attribution review before any tiny real-data fixture.
 - Collect practitioner feedback on the daily production workflow, domain terms, and synthetic-data realism as Phase 1 validation input, not as a development blocker.
 - Extend the web shell beyond read-only review: apply imported preview rows to the local review state, persisted decision journal, and richer variance/deferment logic.
 - Replace the in-page navigation with full routes only when separate workflows need their own URL, loading state, or data boundary.
@@ -64,6 +68,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 ## Notes
 
 - `@energy-os/data-import` now depends on `@energy-os/domain` and returns `{ source, value }` records so downstream UI/import flows can preserve raw public CSV rows while working with validated Energy OS entities.
+- Capítulo IV production values are stored as canonical field units for now: oil/water in `bbl`, gas in `Mcf`, with unit fields attached. Display should convert to metric or field units based on user preference.
 - `apps/web` reads only `datasets/synthetic-field-v0` and does not require auth, cloud services, or real operator data.
 - Public price sources are only benchmark assumptions for demos and sensitivity analysis. Argentina/local realized prices should be modeled as confidential operator inputs unless an official reusable source is confirmed.
 
@@ -78,8 +83,9 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Recheck the well status pill alignment after future table or badge layout changes.
 - Recheck sidebar navigation, hash links, and the Data Sources panel after future layout changes.
 - Recheck the CSV import preview with public-safe wells, production events, and deferments CSVs, including invalid row cases.
+- Review the Capítulo IV mapping with someone familiar with Secretaría de Energía column conventions before adding a web preset or real-data sample.
 - Confirm that Apache 2.0 is the desired initial license.
 
 ## Bloqueos/Decisiones
 
-Nada por ahora.
+- Capítulo IV catalog metadata does not specify a license. Do not commit raw data or real samples until reuse terms and attribution are reviewed.

@@ -4,6 +4,8 @@ import {
   validateProductionEvent,
   validateWell,
   type Deferment,
+  type GasVolumeUnit,
+  type LiquidVolumeUnit,
   type Opportunity,
   type ProductionEvent,
   type SurfaceLocation,
@@ -17,6 +19,18 @@ export type ImportedRecord<T> = {
   source: CsvRow;
   value: T;
 };
+
+export type UnitSystemPreference = "field" | "metric";
+
+export type ProductionVolumeFluid = "oil" | "gas" | "water";
+
+export type ProductionVolumeDisplay = {
+  value: number;
+  unit: LiquidVolumeUnit | GasVolumeUnit;
+};
+
+export const CUBIC_METERS_TO_BARRELS = 6.28981077;
+export const THOUSAND_CUBIC_METERS_TO_MCF = 35.3146667;
 
 export function parseCsvRows(csv: string): CsvRow[] {
   return parse(csv, {
@@ -77,15 +91,54 @@ export function mapProductionEventRow(row: CsvRow): ProductionEvent {
       production_event_id: requireString(row, "production_event_id"),
       well_id: requireString(row, "well_id"),
       production_date: requireString(row, "production_date"),
+      period_start_date: optionalString(row, "period_start_date"),
+      period_end_date: optionalString(row, "period_end_date"),
+      period_granularity: optionalString(row, "period_granularity"),
       oil_volume: toNumber(row.oil_volume),
+      oil_volume_unit: optionalString(row, "oil_volume_unit"),
       gas_volume: toNumber(row.gas_volume),
+      gas_volume_unit: optionalString(row, "gas_volume_unit"),
       water_volume: toNumber(row.water_volume),
+      water_volume_unit: optionalString(row, "water_volume_unit"),
       uptime_hours: toNumber(row.uptime_hours),
       period_hours: toNumber(row.period_hours),
       measurement_method: optionalString(row, "measurement_method"),
       source: optionalString(row, "source")
     })
   );
+}
+
+export function mapArgentinaCapituloIvProductionRow(row: CsvRow): ProductionEvent {
+  const wellId = requireStringFromAliases(row, ["idpozo", "pozo", "well_id"]);
+  const year = requireIntegerFromAliases(row, ["anio", "year"], 1900, 2200);
+  const month = requireIntegerFromAliases(row, ["mes", "month"], 1, 12);
+  const oilCubicMeters = requireNumberFromAliases(row, ["prod_pet", "petroleo_m3", "oil_m3"]);
+  const gasThousandCubicMeters = requireNumberFromAliases(row, [
+    "prod_gas",
+    "gas_miles_m3",
+    "gas_thousand_m3"
+  ]);
+  const waterCubicMeters = requireNumberFromAliases(row, ["prod_agua", "agua_m3", "water_m3"]);
+  const monthLabel = `${year}-${String(month).padStart(2, "0")}`;
+  const lastDay = lastDayOfMonth(year, month);
+
+  return validateProductionEvent({
+    production_event_id: `argentina-capitulo-iv:${wellId}:${monthLabel}`,
+    well_id: wellId,
+    production_date: formatDate(year, month, lastDay),
+    period_start_date: formatDate(year, month, 1),
+    period_end_date: formatDate(year, month, lastDay),
+    period_granularity: "monthly",
+    oil_volume: oilCubicMeters * CUBIC_METERS_TO_BARRELS,
+    oil_volume_unit: "bbl",
+    gas_volume: gasThousandCubicMeters * THOUSAND_CUBIC_METERS_TO_MCF,
+    gas_volume_unit: "Mcf",
+    water_volume: waterCubicMeters * CUBIC_METERS_TO_BARRELS,
+    water_volume_unit: "bbl",
+    period_hours: lastDay * 24,
+    measurement_method: "unknown",
+    source: "argentina-capitulo-iv"
+  });
 }
 
 export function mapDefermentRow(row: CsvRow): Deferment {
@@ -131,12 +184,34 @@ export function importProductionEventRows(csv: string): ImportedRecord<Productio
   return importRows(csv, mapProductionEventRow);
 }
 
+export function importArgentinaCapituloIvProductionRows(
+  csv: string
+): ImportedRecord<ProductionEvent>[] {
+  return importRows(csv, mapArgentinaCapituloIvProductionRow);
+}
+
 export function importDefermentRows(csv: string): ImportedRecord<Deferment>[] {
   return importRows(csv, mapDefermentRow);
 }
 
 export function importOpportunityRows(csv: string): ImportedRecord<Opportunity>[] {
   return importRows(csv, mapOpportunityRow);
+}
+
+export function toDisplayProductionVolume(
+  fluid: ProductionVolumeFluid,
+  canonicalValue: number,
+  unitSystem: UnitSystemPreference
+): ProductionVolumeDisplay {
+  if (fluid === "gas") {
+    return unitSystem === "metric"
+      ? { value: canonicalValue / THOUSAND_CUBIC_METERS_TO_MCF, unit: "thousand_m3" }
+      : { value: canonicalValue, unit: "Mcf" };
+  }
+
+  return unitSystem === "metric"
+    ? { value: canonicalValue / CUBIC_METERS_TO_BARRELS, unit: "m3" }
+    : { value: canonicalValue, unit: "bbl" };
 }
 
 function importRows<T>(csv: string, mapper: (row: CsvRow) => T): ImportedRecord<T>[] {
@@ -149,6 +224,52 @@ function importRows<T>(csv: string, mapper: (row: CsvRow) => T): ImportedRecord<
 function optionalString(row: CsvRow, field: string): string | undefined {
   const value = row[field]?.trim();
   return value === undefined || value === "" ? undefined : value;
+}
+
+function requireStringFromAliases(row: CsvRow, fields: string[]): string {
+  for (const field of fields) {
+    const value = row[field]?.trim();
+    if (value !== undefined && value !== "") {
+      return value;
+    }
+  }
+
+  throw new Error(`Missing required field "${fields.join('" or "')}"`);
+}
+
+function requireNumberFromAliases(row: CsvRow, fields: string[]): number {
+  const value = toNumber(requireStringFromAliases(row, fields));
+
+  if (value === undefined) {
+    throw new Error(`Missing required numeric field "${fields.join('" or "')}"`);
+  }
+
+  return value;
+}
+
+function requireIntegerFromAliases(
+  row: CsvRow,
+  fields: string[],
+  minimum: number,
+  maximum: number
+): number {
+  const value = requireNumberFromAliases(row, fields);
+
+  if (!Number.isInteger(value) || value < minimum || value > maximum) {
+    throw new Error(
+      `Expected integer field "${fields.join('" or "')}" between ${minimum} and ${maximum}`
+    );
+  }
+
+  return value;
+}
+
+function lastDayOfMonth(year: number, month: number): number {
+  return new Date(Date.UTC(year, month, 0)).getUTCDate();
+}
+
+function formatDate(year: number, month: number, day: number): string {
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
 function surfaceLocationFromRow(row: CsvRow): SurfaceLocation | undefined {

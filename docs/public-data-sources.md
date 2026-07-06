@@ -40,7 +40,14 @@ Potential Energy OS mapping:
 - `yacimiento` -> field-like grouping
 - `concesion` -> operating asset or concession metadata
 - `provincia` -> regional metadata
-- monthly oil/gas/water volumes -> `ProductionEvent`
+- monthly oil/gas/water volumes -> monthly `ProductionEvent`
+
+Current implementation:
+
+- Mapping notes live in `docs/import-mappings/argentina-capitulo-iv.md`.
+- `@energy-os/data-import` includes a Capítulo IV production-row mapper tested with synthetic source-shaped rows.
+- The mapper preserves source rows and converts source metric volumes into unit-labeled canonical production events.
+- Raw Capítulo IV data is not committed.
 
 Coverage gap:
 
@@ -111,6 +118,12 @@ Expected output:
 - Unit conversion decisions.
 - Source columns preserved in importer tests.
 - A tiny, license-reviewed sample only if public reuse terms are confirmed.
+
+Current status:
+
+- Mapping notes and synthetic importer tests exist for monthly production rows.
+- Well-specific mapping still needs a reviewed join against the official well resource.
+- Real-data fixture work remains blocked on license and attribution review.
 
 ## Commodity Price Sources
 
