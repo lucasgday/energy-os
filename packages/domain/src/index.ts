@@ -1,7 +1,7 @@
 export {
   defermentSchema,
   opportunitySchema,
-  productionEventSchema,
+  productionMeasurementSchema,
   wellSchema
 } from "./schemas";
 export type {
@@ -15,7 +15,7 @@ export type {
   Opportunity,
   OpportunitySource,
   OpportunityStatus,
-  ProductionEvent,
+  ProductionMeasurement,
   ProductionPeriodGranularity,
   SurfaceLocation,
   Well,
@@ -26,7 +26,7 @@ export {
   DomainValidationError,
   validateDeferment,
   validateOpportunity,
-  validateProductionEvent,
+  validateProductionMeasurement,
   validateWell,
   validateWithSchema,
   type DomainValidationIssue

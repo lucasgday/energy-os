@@ -3,10 +3,10 @@ import addFormats from "ajv-formats";
 import {
   defermentSchema,
   opportunitySchema,
-  productionEventSchema,
+  productionMeasurementSchema,
   wellSchema
 } from "./schemas";
-import type { Deferment, Opportunity, ProductionEvent, Well } from "./types";
+import type { Deferment, Opportunity, ProductionMeasurement, Well } from "./types";
 
 export type DomainValidationIssue = {
   path: string;
@@ -44,8 +44,8 @@ export function validateWell(value: unknown): Well {
   return validateWithSchema<Well>(wellSchema, value);
 }
 
-export function validateProductionEvent(value: unknown): ProductionEvent {
-  return validateWithSchema<ProductionEvent>(productionEventSchema, value);
+export function validateProductionMeasurement(value: unknown): ProductionMeasurement {
+  return validateWithSchema<ProductionMeasurement>(productionMeasurementSchema, value);
 }
 
 export function validateDeferment(value: unknown): Deferment {

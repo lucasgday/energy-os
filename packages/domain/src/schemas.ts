@@ -37,14 +37,14 @@ export const wellSchema = {
   }
 } as const;
 
-export const productionEventSchema = {
-  $id: "https://energy-os.org/schemas/production-events.schema.json",
-  title: "Production Event",
+export const productionMeasurementSchema = {
+  $id: "https://energy-os.org/schemas/production-measurements.schema.json",
+  title: "Production Measurement",
   type: "object",
   additionalProperties: false,
-  required: ["production_event_id", "well_id", "production_date"],
+  required: ["production_measurement_id", "well_id", "production_date"],
   properties: {
-    production_event_id: { type: "string", minLength: 1 },
+    production_measurement_id: { type: "string", minLength: 1 },
     well_id: { type: "string", minLength: 1 },
     production_date: { type: "string", format: "date" },
     period_start_date: { type: "string", format: "date" },

@@ -1,15 +1,15 @@
 import {
   mapDefermentRow,
-  mapProductionEventRow,
+  mapProductionMeasurementRow,
   mapWellRow,
   parseCsvRows,
   type CsvRow
 } from "@energy-os/data-import";
-import type { Deferment, ProductionEvent, Well } from "@energy-os/domain";
+import type { Deferment, ProductionMeasurement, Well } from "@energy-os/domain";
 
-export type ImportEntityType = "wells" | "production_events" | "deferments";
+export type ImportEntityType = "wells" | "production_measurements" | "deferments";
 
-export type ImportPreviewValue = Well | ProductionEvent | Deferment;
+export type ImportPreviewValue = Well | ProductionMeasurement | Deferment;
 
 export type ImportPreviewRecord = {
   rowNumber: number;
@@ -42,9 +42,9 @@ const importConfigs: Record<ImportEntityType, ImportConfig> = {
     label: "Wells",
     mapRow: mapWellRow
   },
-  production_events: {
-    label: "Production events",
-    mapRow: mapProductionEventRow
+  production_measurements: {
+    label: "Production measurements",
+    mapRow: mapProductionMeasurementRow
   },
   deferments: {
     label: "Deferments",

@@ -3,12 +3,12 @@ import {
   DomainValidationError,
   validateDeferment,
   validateOpportunity,
-  validateProductionEvent,
+  validateProductionMeasurement,
   validateWell,
   validateWithSchema,
   wellSchema,
   type Opportunity,
-  type ProductionEvent,
+  type ProductionMeasurement,
   type Well
 } from "./index";
 
@@ -43,8 +43,8 @@ describe("domain validators", () => {
 
   it("rejects invalid production dates and negative volumes", () => {
     expect(() =>
-      validateProductionEvent({
-        production_event_id: "pe-001",
+      validateProductionMeasurement({
+        production_measurement_id: "pm-001",
         well_id: "well-001",
         production_date: "06/17/2026",
         oil_volume: -1
@@ -52,9 +52,9 @@ describe("domain validators", () => {
     ).toThrow(DomainValidationError);
   });
 
-  it("accepts monthly production events with explicit volume units", () => {
-    const event = validateProductionEvent({
-      production_event_id: "argentina-capitulo-iv:well-001:2023-02",
+  it("accepts monthly production measurements with explicit volume units", () => {
+    const measurement = validateProductionMeasurement({
+      production_measurement_id: "argentina-capitulo-iv:well-001:2023-02",
       well_id: "well-001",
       production_date: "2023-02-28",
       period_start_date: "2023-02-01",
@@ -72,10 +72,10 @@ describe("domain validators", () => {
       source: "argentina-capitulo-iv"
     });
 
-    expect(event.period_granularity).toBe("monthly");
-    expect(event.uptime_hours).toBe(600);
-    expect(event.period_hours).toBe(672);
-    expect(event.oil_volume_unit).toBe("bbl");
+    expect(measurement.period_granularity).toBe("monthly");
+    expect(measurement.uptime_hours).toBe(600);
+    expect(measurement.period_hours).toBe(672);
+    expect(measurement.oil_volume_unit).toBe("bbl");
   });
 
   it("accepts deferments with ISO timestamps", () => {
@@ -123,8 +123,8 @@ describe("validateWithSchema", () => {
 
   it("includes schema error details on validation failure", () => {
     try {
-      validateProductionEvent({
-        production_event_id: "pe-001",
+      validateProductionMeasurement({
+        production_measurement_id: "pm-001",
         well_id: "well-001",
         production_date: "2026-06-17",
         period_granularity: "weekly"
@@ -138,13 +138,13 @@ describe("validateWithSchema", () => {
     throw new Error("Expected validation failure");
   });
 
-  it("keeps production event types available to downstream packages", () => {
-    const event: ProductionEvent = {
-      production_event_id: "pe-001",
+  it("keeps production measurement types available to downstream packages", () => {
+    const measurement: ProductionMeasurement = {
+      production_measurement_id: "pm-001",
       well_id: "well-001",
       production_date: "2026-06-17"
     };
 
-    expect(event.well_id).toBe("well-001");
+    expect(measurement.well_id).toBe("well-001");
   });
 });

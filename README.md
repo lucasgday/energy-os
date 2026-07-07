@@ -96,7 +96,7 @@ packages/
   economics/
 schemas/
   wells.schema.json
-  production-events.schema.json
+  production-measurements.schema.json
   deferments.schema.json
   opportunities.schema.json
 ```

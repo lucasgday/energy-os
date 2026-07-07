@@ -27,7 +27,7 @@ Why it matters:
 - Monthly production by well, field, concession, and province.
 - Oil in `m3`, gas in `Miles de m3`, and water in `m3`.
 - Includes annual CSV resources and well-related resources such as `Capítulo IV - Pozos`.
-- Strong first candidate for mapping into `Well` and `ProductionEvent`.
+- Strong first candidate for mapping into `Well` and `ProductionMeasurement`.
 
 Current caveat:
 
@@ -40,13 +40,13 @@ Potential Energy OS mapping:
 - `yacimiento` -> field-like grouping
 - `concesion` -> operating asset or concession metadata
 - `provincia` -> regional metadata
-- monthly oil/gas/water volumes -> monthly `ProductionEvent`
+- monthly oil/gas/water volumes -> monthly `ProductionMeasurement`
 
 Current implementation:
 
 - Mapping notes live in `docs/import-mappings/argentina-capitulo-iv.md`.
 - `@energy-os/data-import` includes a Capítulo IV production-row mapper tested with synthetic source-shaped rows.
-- The mapper preserves source rows and converts source metric volumes into unit-labeled canonical production events.
+- The mapper preserves source rows and converts source metric volumes into unit-labeled canonical production measurements.
 - Raw Capítulo IV data is not committed.
 
 Coverage gap:
@@ -110,7 +110,7 @@ Coverage gap:
 
 The first real-data task should be a mapping exercise, not a bulk import:
 
-> Map Argentina Capítulo IV data to the Energy OS `Well` and `ProductionEvent` schemas.
+> Map Argentina Capítulo IV data to the Energy OS `Well` and `ProductionMeasurement` schemas.
 
 Expected output:
 

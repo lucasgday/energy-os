@@ -1,0 +1,13 @@
+production_measurement_id,well_id,production_date,oil_volume,gas_volume,water_volume,uptime_hours,period_hours,measurement_method,source
+pm-001,well-001,2026-06-15,82,410,120,24,24,allocated,synthetic
+pm-002,well-001,2026-06-16,79,398,124,24,24,allocated,synthetic
+pm-003,well-001,2026-06-17,51,260,128,15,24,allocated,synthetic
+pm-004,well-002,2026-06-15,140,700,210,24,24,metered,synthetic
+pm-005,well-002,2026-06-16,137,690,215,24,24,metered,synthetic
+pm-006,well-002,2026-06-17,132,670,220,23,24,metered,synthetic
+pm-007,well-003,2026-06-15,0,0,0,0,24,manual,synthetic
+pm-008,well-003,2026-06-16,0,0,0,0,24,manual,synthetic
+pm-009,well-003,2026-06-17,0,0,0,0,24,manual,synthetic
+pm-010,well-004,2026-06-15,63,310,180,24,24,allocated,synthetic
+pm-011,well-004,2026-06-16,64,315,179,24,24,allocated,synthetic
+pm-012,well-004,2026-06-17,65,319,181,24,24,allocated,synthetic

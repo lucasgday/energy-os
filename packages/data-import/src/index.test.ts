@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { DomainValidationError } from "@energy-os/domain";
 import {
-  importArgentinaCapituloIvProductionRows,
+  importArgentinaCapituloIvProductionMeasurementRows,
   importDefermentRows,
   importOpportunityRows,
-  importProductionEventRows,
+  importProductionMeasurementRows,
   importWellRows,
   parseCsvRows,
   requireString,
@@ -83,10 +83,10 @@ describe("domain CSV import helpers", () => {
     });
   });
 
-  it("imports production events with numeric conversions and domain validation", () => {
-    const [record] = importProductionEventRows(
-      "production_event_id,well_id,production_date,oil_volume,gas_volume,water_volume,uptime_hours,period_hours,measurement_method,source\n" +
-        "pe-001,well-001,2026-06-17,51,260,128,15,24,allocated,synthetic\n"
+  it("imports production measurements with numeric conversions and domain validation", () => {
+    const [record] = importProductionMeasurementRows(
+      "production_measurement_id,well_id,production_date,oil_volume,gas_volume,water_volume,uptime_hours,period_hours,measurement_method,source\n" +
+        "pm-001,well-001,2026-06-17,51,260,128,15,24,allocated,synthetic\n"
     );
 
     expect(record?.value.oil_volume).toBe(51);
@@ -108,18 +108,18 @@ describe("domain CSV import helpers", () => {
   it("imports opportunities with list-valued evidence refs", () => {
     const [record] = importOpportunityRows(
       "opportunity_id,well_id,title,source,hypothesis,expected_oil_uplift,expected_gas_uplift,estimated_cost,estimated_payout_days,status,evidence_refs\n" +
-        "opp-001,well-001,Inspect rod pump after downtime,manual,Recent downtime caused material production loss,18,90,6500,6,proposed,def-001; pe-003\n"
+        "opp-001,well-001,Inspect rod pump after downtime,manual,Recent downtime caused material production loss,18,90,6500,6,proposed,def-001; pm-003\n"
     );
 
-    expect(record?.value.evidence_refs).toEqual(["def-001", "pe-003"]);
+    expect(record?.value.evidence_refs).toEqual(["def-001", "pm-003"]);
     expect(record?.value.estimated_cost).toBe(6500);
   });
 
   it("rejects rows that map outside the Energy OS domain schema", () => {
     expect(() =>
-      importProductionEventRows(
-        "production_event_id,well_id,production_date,oil_volume,uptime_hours\n" +
-          "pe-001,well-001,2026-06-17,-1,25\n"
+      importProductionMeasurementRows(
+        "production_measurement_id,well_id,production_date,oil_volume,uptime_hours\n" +
+          "pm-001,well-001,2026-06-17,-1,25\n"
       )
     ).toThrow(DomainValidationError);
 
@@ -130,8 +130,8 @@ describe("domain CSV import helpers", () => {
 });
 
 describe("Argentina Capitulo IV import helpers", () => {
-  it("maps monthly public production rows to unit-labeled production events", () => {
-    const [record] = importArgentinaCapituloIvProductionRows(
+  it("maps monthly public production rows to unit-labeled production measurements", () => {
+    const [record] = importArgentinaCapituloIvProductionMeasurementRows(
       "idpozo,anio,mes,prod_pet,prod_gas,prod_agua,yacimiento,concesion,provincia\n" +
         "ARG-POZO-001,2023,2,10,2.5,3,Alpha Field,Alpha Concession,Mendoza\n"
     );
@@ -139,7 +139,7 @@ describe("Argentina Capitulo IV import helpers", () => {
     expect(record?.source.prod_pet).toBe("10");
     expect(record?.source.prod_gas).toBe("2.5");
     expect(record?.value).toMatchObject({
-      production_event_id: "argentina-capitulo-iv:ARG-POZO-001:2023-02",
+      production_measurement_id: "argentina-capitulo-iv:ARG-POZO-001:2023-02",
       well_id: "ARG-POZO-001",
       production_date: "2023-02-28",
       period_start_date: "2023-02-01",

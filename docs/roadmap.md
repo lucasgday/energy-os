@@ -42,8 +42,8 @@ Example outcome metrics:
 Stage: closed.
 
 - `[done]` Publish thesis, roadmap, product blueprint, build-in-public rules, and domain model.
-- `[done]` Define the v0 entities: field, well, completion, production event, deferment, intervention, opportunity, cost, price scenario, decision.
-  Current state: first-pass domain model exists, and schemas exist for wells, production events, deferments, and opportunities. Price scenario, decision, intervention, completion, and cost schema work continues as Phase 1/2 schema evolution, not a Phase 0 blocker.
+- `[done]` Define the v0 entities: field, well, completion, production measurement, deferment, intervention, opportunity, cost, price scenario, decision.
+  Current state: first-pass domain model exists, and schemas exist for wells, production measurements, deferments, and opportunities. Price scenario, decision, intervention, completion, and cost schema work continues as Phase 1/2 schema evolution, not a Phase 0 blocker.
 - `[done]` Create synthetic field data that can be safely shared.
 - `[done]` Keep the scope limited to decision support.
 - `[done]` Move practitioner validation into Phase 1 as a non-blocking parallel track.
@@ -60,7 +60,7 @@ Exit criteria:
 Stage: current.
 
 - `[partial]` Import CSV or Excel files for wells, production, downtime, and costs.
-  Current state: `@energy-os/data-import` parses CSV and validates domain records. The web app has a client-side CSV import preview for wells, production events, and deferments. Excel, cost imports, and applying imported rows to the active review are not started.
+  Current state: `@energy-os/data-import` parses CSV and validates domain records. The web app has a client-side CSV import preview for wells, production measurements, and deferments. Excel, cost imports, and applying imported rows to the active review are not started.
 - `[partial]` Show field and well dashboards.
   Current state: public Next.js shell shows field summary, well surveillance, deferments, opportunities, selected opportunity detail, data sources, and in-page navigation.
 - `[partial]` Record deferments and interventions.
@@ -86,9 +86,9 @@ Exit criteria:
 Next Phase 1 tasks:
 
 - `[done]` Add CSV import preview to the web shell.
-  Current state: client-side only, no persistence, public-safe warning, wells / production events / deferments, validation using existing packages, row-level valid/error preview.
-- `[partial]` Map Argentina Capitulo IV data to `Well` and `ProductionEvent` schemas.
-  Current state: monthly production mapping notes exist, `ProductionEvent` supports monthly periods and explicit volume units, and `@energy-os/data-import` maps synthetic Capitulo IV-shaped rows into unit-labeled production events while preserving source rows. Remaining scope: Well-side mapping, web import preset, official header verification, and no bulk raw-data commit until reuse terms are reviewed.
+  Current state: client-side only, no persistence, public-safe warning, wells / production measurements / deferments, validation using existing packages, row-level valid/error preview.
+- `[partial]` Map Argentina Capitulo IV data to `Well` and `ProductionMeasurement` schemas.
+  Current state: monthly production mapping notes exist, `ProductionMeasurement` supports monthly periods and explicit volume units, and `@energy-os/data-import` maps synthetic Capitulo IV-shaped rows into unit-labeled production measurements while preserving source rows. Remaining scope: Well-side mapping, web import preset, official header verification, and no bulk raw-data commit until reuse terms are reviewed.
 - `[next]` Add `PriceScenario` v0.
   Scope: public benchmark assumptions first; private realized prices and contract formulas remain out of the public repo.
 - `[planned]` Formalize carry-over schemas for `Completion`, `Intervention`, `Cost`, and `Decision`.

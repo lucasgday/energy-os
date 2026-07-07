@@ -23,7 +23,7 @@ Do not share real well names, production exports, operating procedures, or confi
 
 Best first contributions:
 
-- Map Argentina Capitulo IV columns to `Well` and `ProductionEvent`.
+- Map Argentina Capitulo IV columns to `Well` and `ProductionMeasurement`.
 - Add mapping notes for EIA, RRC, or BSEE public datasets.
 - Improve CSV import tests while preserving original source values.
 - Add unit conversion notes for oil, gas, water, uptime, and dates.

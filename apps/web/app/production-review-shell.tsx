@@ -69,10 +69,10 @@ const importEntityOptions = [
     expectedColumns: ["well_id", "field_id", "name", "well_type", "status"]
   },
   {
-    type: "production_events",
+    type: "production_measurements",
     label: "Production",
     expectedColumns: [
-      "production_event_id",
+      "production_measurement_id",
       "well_id",
       "production_date",
       "oil_volume",
@@ -940,7 +940,7 @@ function recordWell(record: ImportPreviewRecord) {
 function recordSignal(record: ImportPreviewRecord) {
   const value = record.value;
 
-  if ("production_event_id" in value) {
+  if ("production_measurement_id" in value) {
     return `${value.production_date} · ${formatNumber(value.oil_volume ?? 0)} oil`;
   }
 
@@ -953,7 +953,7 @@ function recordSignal(record: ImportPreviewRecord) {
 
 function sourceRowId(source: Record<string, string>) {
   return (
-    source.production_event_id ??
+    source.production_measurement_id ??
     source.deferment_id ??
     source.well_id ??
     source.id ??

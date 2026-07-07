@@ -47,17 +47,17 @@ Important attributes:
 - `bottom_depth`
 - `status`
 
-### Production Event
+### Production Measurement
 
 Measured or reported production for one well over one explicit production period. The period can be daily, monthly, or periodic.
 
-A production event answers: what did this well produce during this period?
+A production measurement answers: what did this well produce during this period?
 
 It is not a downtime cause, intervention, recommendation, sale, or invoice.
 
 Important attributes:
 
-- `production_event_id`
+- `production_measurement_id`
 - `well_id`
 - `production_date`
 - `period_start_date`
@@ -142,7 +142,7 @@ Important attributes:
 
 - A field has many wells.
 - A well has zero or more completions.
-- A well has many production events.
+- A well has many production measurements.
 - A well has many deferments.
 - A well has many interventions.
 - A well has many opportunities.

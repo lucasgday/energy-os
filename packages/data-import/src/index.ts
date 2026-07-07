@@ -1,13 +1,13 @@
 import {
   validateDeferment,
   validateOpportunity,
-  validateProductionEvent,
+  validateProductionMeasurement,
   validateWell,
   type Deferment,
   type GasVolumeUnit,
   type LiquidVolumeUnit,
   type Opportunity,
-  type ProductionEvent,
+  type ProductionMeasurement,
   type SurfaceLocation,
   type Well
 } from "@energy-os/domain";
@@ -85,10 +85,10 @@ export function mapWellRow(row: CsvRow): Well {
   );
 }
 
-export function mapProductionEventRow(row: CsvRow): ProductionEvent {
-  return validateProductionEvent(
+export function mapProductionMeasurementRow(row: CsvRow): ProductionMeasurement {
+  return validateProductionMeasurement(
     omitUndefined({
-      production_event_id: requireString(row, "production_event_id"),
+      production_measurement_id: requireString(row, "production_measurement_id"),
       well_id: requireString(row, "well_id"),
       production_date: requireString(row, "production_date"),
       period_start_date: optionalString(row, "period_start_date"),
@@ -108,7 +108,7 @@ export function mapProductionEventRow(row: CsvRow): ProductionEvent {
   );
 }
 
-export function mapArgentinaCapituloIvProductionRow(row: CsvRow): ProductionEvent {
+export function mapArgentinaCapituloIvProductionMeasurementRow(row: CsvRow): ProductionMeasurement {
   const wellId = requireStringFromAliases(row, ["idpozo", "pozo", "well_id"]);
   const year = requireIntegerFromAliases(row, ["anio", "year"], 1900, 2200);
   const month = requireIntegerFromAliases(row, ["mes", "month"], 1, 12);
@@ -122,8 +122,8 @@ export function mapArgentinaCapituloIvProductionRow(row: CsvRow): ProductionEven
   const monthLabel = `${year}-${String(month).padStart(2, "0")}`;
   const lastDay = lastDayOfMonth(year, month);
 
-  return validateProductionEvent({
-    production_event_id: `argentina-capitulo-iv:${wellId}:${monthLabel}`,
+  return validateProductionMeasurement({
+    production_measurement_id: `argentina-capitulo-iv:${wellId}:${monthLabel}`,
     well_id: wellId,
     production_date: formatDate(year, month, lastDay),
     period_start_date: formatDate(year, month, 1),
@@ -180,14 +180,14 @@ export function importWellRows(csv: string): ImportedRecord<Well>[] {
   return importRows(csv, mapWellRow);
 }
 
-export function importProductionEventRows(csv: string): ImportedRecord<ProductionEvent>[] {
-  return importRows(csv, mapProductionEventRow);
+export function importProductionMeasurementRows(csv: string): ImportedRecord<ProductionMeasurement>[] {
+  return importRows(csv, mapProductionMeasurementRow);
 }
 
-export function importArgentinaCapituloIvProductionRows(
+export function importArgentinaCapituloIvProductionMeasurementRows(
   csv: string
-): ImportedRecord<ProductionEvent>[] {
-  return importRows(csv, mapArgentinaCapituloIvProductionRow);
+): ImportedRecord<ProductionMeasurement>[] {
+  return importRows(csv, mapArgentinaCapituloIvProductionMeasurementRow);
 }
 
 export function importDefermentRows(csv: string): ImportedRecord<Deferment>[] {

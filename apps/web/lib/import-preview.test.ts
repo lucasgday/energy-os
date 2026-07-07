@@ -29,25 +29,26 @@ describe("previewCsvImport", () => {
     expect(preview.errors).toEqual([]);
   });
 
-  it("keeps valid production rows when another row fails validation", () => {
+  it("keeps valid production measurement rows when another row fails validation", () => {
     const preview = previewCsvImport(
-      "production_events",
-      "production_event_id,well_id,production_date,oil_volume,uptime_hours,source\n" +
-        "pe-001,well-001,2026-06-17,51,15,synthetic\n" +
-        "pe-002,well-001,2026-06-18,-1,24,synthetic\n"
+      "production_measurements",
+      "production_measurement_id,well_id,production_date,oil_volume,uptime_hours,source\n" +
+        "pm-001,well-001,2026-06-17,51,15,synthetic\n" +
+        "pm-002,well-001,2026-06-18,-1,24,synthetic\n"
     );
 
+    expect(preview.label).toBe("Production measurements");
     expect(preview.totalRows).toBe(2);
     expect(preview.validRecords).toHaveLength(1);
     expect(preview.validRecords[0]?.value).toMatchObject({
-      production_event_id: "pe-001",
+      production_measurement_id: "pm-001",
       oil_volume: 51
     });
     expect(preview.errors).toHaveLength(1);
     expect(preview.errors[0]).toMatchObject({
       rowNumber: 3,
       source: {
-        production_event_id: "pe-002",
+        production_measurement_id: "pm-002",
         oil_volume: "-1"
       }
     });

@@ -7,7 +7,7 @@ The dataset is intentionally small. It is designed to exercise the first product
 ## Files
 
 - `wells.csv`: fictional well metadata for one mature field.
-- `production_events.csv`: three daily production records per well.
+- `production_measurements.csv`: three daily production records per well.
 - `deferments.csv`: example production loss and downtime events.
 - `opportunities.csv`: example opportunity records linked to deferment evidence.
 

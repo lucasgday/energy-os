@@ -4,10 +4,10 @@ import { join } from "node:path";
 import {
   importDefermentRows,
   importOpportunityRows,
-  importProductionEventRows,
+  importProductionMeasurementRows,
   importWellRows
 } from "@energy-os/data-import";
-import type { Deferment, Opportunity, ProductionEvent, Well } from "@energy-os/domain";
+import type { Deferment, Opportunity, ProductionMeasurement, Well } from "@energy-os/domain";
 import { calculateOpportunityEconomics, type OpportunityEconomics } from "@energy-os/economics";
 
 export type ProductionReview = {
@@ -45,8 +45,8 @@ export type ProductionReview = {
 
 export type WellReview = Well & {
   statusLabel: string;
-  latest: ProductionEvent;
-  previous: ProductionEvent | undefined;
+  latest: ProductionMeasurement;
+  previous: ProductionMeasurement | undefined;
   oilDelta: number;
   gasDelta: number;
   waterDelta: number;
@@ -84,10 +84,12 @@ const ASSUMPTIONS = {
 
 export function getProductionReview(): ProductionReview {
   const wells = loadWells();
-  const productionEvents = loadProductionEvents();
+  const productionMeasurements = loadProductionMeasurements();
   const deferments = loadDeferments();
   const opportunities = loadOpportunities();
-  const dates = [...new Set(productionEvents.map((event) => event.production_date))].sort();
+  const dates = [
+    ...new Set(productionMeasurements.map((measurement) => measurement.production_date))
+  ].sort();
   const latestProductionDate = dates.at(-1);
   const previousProductionDate = dates.at(-2);
 
@@ -96,18 +98,24 @@ export function getProductionReview(): ProductionReview {
   }
 
   const wellNameById = new Map(wells.map((well) => [well.well_id, well.name]));
-  const latestEvents = productionEvents.filter((event) => event.production_date === latestProductionDate);
-  const previousEvents = productionEvents.filter((event) => event.production_date === previousProductionDate);
-  const previousByWell = new Map(previousEvents.map((event) => [event.well_id, event]));
+  const latestMeasurements = productionMeasurements.filter(
+    (measurement) => measurement.production_date === latestProductionDate
+  );
+  const previousMeasurements = productionMeasurements.filter(
+    (measurement) => measurement.production_date === previousProductionDate
+  );
+  const previousByWell = new Map(
+    previousMeasurements.map((measurement) => [measurement.well_id, measurement])
+  );
   const openDeferments = deferments.filter((deferment) => deferment.status === "open");
   const activeWells = wells.filter((well) => well.status === "producing" || well.status === "injecting");
-  const latestTotals = totalProduction(latestEvents);
-  const previousTotals = totalProduction(previousEvents);
+  const latestTotals = totalProduction(latestMeasurements);
+  const previousTotals = totalProduction(previousMeasurements);
   const reviewedWells = wells.map((well) => {
-    const latest = latestEvents.find((event) => event.well_id === well.well_id);
+    const latest = latestMeasurements.find((measurement) => measurement.well_id === well.well_id);
 
     if (latest === undefined) {
-      throw new Error(`Missing latest production event for well "${well.well_id}"`);
+      throw new Error(`Missing latest production measurement for well "${well.well_id}"`);
     }
 
     const previous = previousByWell.get(well.well_id);
@@ -148,7 +156,9 @@ export function getProductionReview(): ProductionReview {
       latestOilVolume: latestTotals.oil,
       latestGasVolume: latestTotals.gas,
       latestWaterVolume: latestTotals.water,
-      averageUptimeHours: average(latestEvents.map((event) => event.uptime_hours ?? 0)),
+      averageUptimeHours: average(
+        latestMeasurements.map((measurement) => measurement.uptime_hours ?? 0)
+      ),
       oilDelta: latestTotals.oil - previousTotals.oil,
       gasDelta: latestTotals.gas - previousTotals.gas,
       waterDelta: latestTotals.water - previousTotals.water
@@ -165,8 +175,8 @@ function loadWells(): Well[] {
   return importWellRows(readDatasetFile("wells.csv")).map((record) => record.value);
 }
 
-function loadProductionEvents(): ProductionEvent[] {
-  return importProductionEventRows(readDatasetFile("production_events.csv")).map((record) => record.value);
+function loadProductionMeasurements(): ProductionMeasurement[] {
+  return importProductionMeasurementRows(readDatasetFile("production_measurements.csv")).map((record) => record.value);
 }
 
 function loadDeferments(): Deferment[] {
@@ -191,12 +201,14 @@ function datasetDirectory(): string {
   return join(process.cwd(), "..", "..", "datasets", "synthetic-field-v0");
 }
 
-function totalProduction(events: ProductionEvent[]): { oil: number; gas: number; water: number } {
-  return events.reduce(
-    (total, event) => ({
-      oil: total.oil + (event.oil_volume ?? 0),
-      gas: total.gas + (event.gas_volume ?? 0),
-      water: total.water + (event.water_volume ?? 0)
+function totalProduction(
+  measurements: ProductionMeasurement[]
+): { oil: number; gas: number; water: number } {
+  return measurements.reduce(
+    (total, measurement) => ({
+      oil: total.oil + (measurement.oil_volume ?? 0),
+      gas: total.gas + (measurement.gas_volume ?? 0),
+      water: total.water + (measurement.water_volume ?? 0)
     }),
     { oil: 0, gas: 0, water: 0 }
   );

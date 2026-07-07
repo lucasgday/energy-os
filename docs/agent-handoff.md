@@ -10,7 +10,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Defined roadmap phases from foundation to digital energy operator.
 - Defined product blueprint and first-pass domain model.
 - Added public build-in-public rules.
-- Added initial JSON schemas for wells, production events, deferments, and opportunities.
+- Added initial JSON schemas for wells, production measurements, deferments, and opportunities.
 - Published the initial repository to GitHub.
 - Chose a hybrid prototype direction: local-first execution with SaaS-ready architecture.
 - Added the Hybrid MVP Foundation implementation plan.
@@ -28,7 +28,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added public data source documentation for Argentina and U.S. official datasets.
 - Created `#8` to map Argentina Capítulo IV data to Energy OS schemas.
 - Added `@energy-os/economics` for deterministic upstream opportunity economics (`#4`).
-- Added `@energy-os/domain` with schema-backed validators for wells, production events, deferments, and opportunities (`#3`).
+- Added `@energy-os/domain` with schema-backed validators for wells, production measurements, deferments, and opportunities (`#3`).
 - Added `@energy-os/data-import` for CSV parsing, explicit numeric conversion, and upstream domain-validated imports (`#5`).
 - Added `apps/web`, a Next.js production review shell that loads the synthetic field dataset, validates imports, ranks opportunities with deterministic economics, and shows a read-only daily review workflow (`#6`).
 - Added public GitHub issue templates and type/area/priority labels with explicit public-data reminders (`#7`).
@@ -45,9 +45,9 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Added navigation v0 to the web shell: sidebar links and panel actions now navigate to in-page sections for overview, surveillance, deferments, opportunities, journal, and data sources.
 - Converted the roadmap into a status-tracked roadmap with `[done]`, `[partial]`, `[next]`, `[planned]`, and `[later]` markers plus a near-term Phase 1 sequence.
 - Closed Phase 0 in the roadmap by moving practitioner validation into Phase 1 as a non-blocking parallel validation track.
-- Added a client-side CSV import preview to the web shell for wells, production events, and deferments. It preserves source columns, validates rows through existing import/domain packages, reports row-level valid/error counts, and does not persist records.
-- Clarified `ProductionEvent` as one well's measured or reported production over an explicit period, not a deferment, intervention, opportunity, sale, or invoice.
-- Extended `ProductionEvent` to support monthly periods and explicit volume units for oil, gas, and water.
+- Added a client-side CSV import preview to the web shell for wells, production measurements, and deferments. It preserves source columns, validates rows through existing import/domain packages, reports row-level valid/error counts, and does not persist records.
+- Clarified `ProductionMeasurement` as one well's measured or reported production over an explicit period, not a deferment, intervention, opportunity, sale, or invoice.
+- Extended `ProductionMeasurement` to support monthly periods and explicit volume units for oil, gas, and water.
 - Added `docs/import-mappings/argentina-capitulo-iv.md` with Capítulo IV mapping notes, unit conversion policy, source preservation rules, and real-data caveats.
 - Added `@energy-os/data-import` support for synthetic Capitulo IV-shaped monthly production rows, converting source metric volumes into unit-labeled canonical field units while preserving source rows.
 
@@ -82,7 +82,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 - Confirm the public demo opens directly without a Vercel login after any future Vercel project protection changes.
 - Recheck the well status pill alignment after future table or badge layout changes.
 - Recheck sidebar navigation, hash links, and the Data Sources panel after future layout changes.
-- Recheck the CSV import preview with public-safe wells, production events, and deferments CSVs, including invalid row cases.
+- Recheck the CSV import preview with public-safe wells, production measurements, and deferments CSVs, including invalid row cases.
 - Review the Capítulo IV mapping with someone familiar with Secretaría de Energía column conventions before adding a web preset or real-data sample.
 - Confirm that Apache 2.0 is the desired initial license.
 

@@ -8,13 +8,13 @@ Official source:
 
 The official catalog describes this dataset as monthly production detail by well, field, concession, and province. It reports oil in `m3`, gas in `Miles de m3`, and water in `m3`. The catalog metadata currently does not specify a license, so Energy OS should keep using mapping code and synthetic tests until reuse terms are reviewed.
 
-## ProductionEvent Meaning
+## Production Measurement Meaning
 
-A `ProductionEvent` is one measured or reported production record for one well over one production period. The period can be daily, monthly, or another explicit interval.
+A `ProductionMeasurement` is one measured or reported production record for one well over one production period. The period can be daily, monthly, or another explicit interval.
 
 It answers: what did this well produce during this period?
 
-If `uptime_hours` is present, it is the uptime inside the event period. For a daily event it is usually 0-24; for a monthly event it can be hundreds of hours.
+If `uptime_hours` is present, it is the uptime inside the measurement period. For a daily measurement it is usually 0-24; for a monthly measurement it can be hundreds of hours.
 
 It is not:
 
@@ -50,7 +50,7 @@ The UI should display the user's preferred unit system, but never show volume nu
 | Source field | Energy OS field | Rule |
 | --- | --- | --- |
 | `idpozo` / `pozo` / `well_id` | `well_id` | Required. Preserved as the source well identifier. |
-| `anio` + `mes` | `production_event_id` | `argentina-capitulo-iv:{well_id}:{YYYY-MM}`. |
+| `anio` + `mes` | `production_measurement_id` | `argentina-capitulo-iv:{well_id}:{YYYY-MM}`. |
 | `anio` + `mes` | `period_start_date` | First calendar day of the month. |
 | `anio` + `mes` | `period_end_date` and `production_date` | Last calendar day of the month. |
 | `anio` + `mes` | `period_hours` | Calendar days in month multiplied by 24. |
@@ -73,6 +73,6 @@ Potential metadata mappings to keep for future `Well` or `Field` enrichment:
 
 ## Current Implementation
 
-`@energy-os/data-import` includes `importArgentinaCapituloIvProductionRows` and tests it with synthetic Capitulo IV-shaped rows. No raw Capitulo IV data is committed.
+`@energy-os/data-import` includes `importArgentinaCapituloIvProductionMeasurementRows` and tests it with synthetic Capitulo IV-shaped rows. No raw Capitulo IV data is committed.
 
 The next implementation step is to wire this mapper into the web import preview as an explicit source preset, then add a tiny real-data sample only if license and attribution terms are confirmed.

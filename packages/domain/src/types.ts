@@ -47,8 +47,8 @@ export type LiquidVolumeUnit = "bbl" | "m3";
 
 export type GasVolumeUnit = "Mcf" | "thousand_m3";
 
-export type ProductionEvent = {
-  production_event_id: string;
+export type ProductionMeasurement = {
+  production_measurement_id: string;
   well_id: string;
   production_date: string;
   period_start_date?: string;
