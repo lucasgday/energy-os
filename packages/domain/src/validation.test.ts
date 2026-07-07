@@ -68,13 +68,14 @@ describe("domain validators", () => {
       water_volume_unit: "bbl",
       uptime_hours: 600,
       period_hours: 672,
-      measurement_method: "unknown",
+      measurement_method: "reported",
       source: "argentina-capitulo-iv"
     });
 
     expect(measurement.period_granularity).toBe("monthly");
     expect(measurement.uptime_hours).toBe(600);
     expect(measurement.period_hours).toBe(672);
+    expect(measurement.measurement_method).toBe("reported");
     expect(measurement.oil_volume_unit).toBe("bbl");
   });
 

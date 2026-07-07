@@ -69,6 +69,7 @@ Energy OS is initialized as an open source, build-in-public repository at `https
 
 - `@energy-os/data-import` now depends on `@energy-os/domain` and returns `{ source, value }` records so downstream UI/import flows can preserve raw public CSV rows while working with validated Energy OS entities.
 - Capítulo IV production values are stored as canonical field units for now: oil/water in `bbl`, gas in `Mcf`, with unit fields attached. Display should convert to metric or field units based on user preference.
+- Capítulo IV production measurements use `measurement_method: reported`; do not imply direct wellhead measurement unless source metadata proves it.
 - `apps/web` reads only `datasets/synthetic-field-v0` and does not require auth, cloud services, or real operator data.
 - Public price sources are only benchmark assumptions for demos and sensitivity analysis. Argentina/local realized prices should be modeled as confidential operator inputs unless an official reusable source is confirmed.
 

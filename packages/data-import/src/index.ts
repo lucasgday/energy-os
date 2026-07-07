@@ -136,7 +136,7 @@ export function mapArgentinaCapituloIvProductionMeasurementRow(row: CsvRow): Pro
     water_volume: waterCubicMeters * CUBIC_METERS_TO_BARRELS,
     water_volume_unit: "bbl",
     period_hours: lastDay * 24,
-    measurement_method: "unknown",
+    measurement_method: "reported",
     source: "argentina-capitulo-iv"
   });
 }

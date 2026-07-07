@@ -67,7 +67,7 @@
     },
     "measurement_method": {
       "type": "string",
-      "enum": ["metered", "allocated", "estimated", "manual", "unknown"]
+      "enum": ["metered", "allocated", "reported", "estimated", "manual", "unknown"]
     },
     "source": {
       "type": "string"

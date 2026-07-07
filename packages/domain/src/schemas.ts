@@ -72,7 +72,7 @@ export const productionMeasurementSchema = {
     period_hours: { type: "number", minimum: 0 },
     measurement_method: {
       type: "string",
-      enum: ["metered", "allocated", "estimated", "manual", "unknown"]
+      enum: ["metered", "allocated", "reported", "estimated", "manual", "unknown"]
     },
     source: { type: "string" }
   }

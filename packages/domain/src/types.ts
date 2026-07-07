@@ -39,7 +39,13 @@ export type Well = {
   source?: string;
 };
 
-export type MeasurementMethod = "metered" | "allocated" | "estimated" | "manual" | "unknown";
+export type MeasurementMethod =
+  | "metered"
+  | "allocated"
+  | "reported"
+  | "estimated"
+  | "manual"
+  | "unknown";
 
 export type ProductionPeriodGranularity = "daily" | "monthly" | "periodic" | "unknown";
 

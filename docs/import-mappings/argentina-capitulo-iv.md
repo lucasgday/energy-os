@@ -58,7 +58,7 @@ The UI should display the user's preferred unit system, but never show volume nu
 | `prod_gas` / `gas_miles_m3` / `gas_thousand_m3` | `gas_volume` | Convert source `thousand_m3` to canonical `Mcf`; set `gas_volume_unit` to `Mcf`. |
 | `prod_agua` / `agua_m3` / `water_m3` | `water_volume` | Convert source `m3` to canonical `bbl`; set `water_volume_unit` to `bbl`. |
 | monthly source record | `period_granularity` | `monthly`. |
-| monthly source record | `measurement_method` | `unknown` until source metadata proves a more specific method. |
+| monthly source record | `measurement_method` | `reported`, because Capitulo IV is reported public production data rather than an assumed direct wellhead measurement. |
 | source dataset | `source` | `argentina-capitulo-iv`. |
 
 ## Well Mapping Notes

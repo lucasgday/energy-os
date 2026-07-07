@@ -146,7 +146,7 @@ describe("Argentina Capitulo IV import helpers", () => {
       period_end_date: "2023-02-28",
       period_granularity: "monthly",
       period_hours: 672,
-      measurement_method: "unknown",
+      measurement_method: "reported",
       oil_volume_unit: "bbl",
       gas_volume_unit: "Mcf",
       water_volume_unit: "bbl",
