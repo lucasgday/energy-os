@@ -145,6 +145,22 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
     },
     [importEntityType, updateImportPreview]
   );
+  const handleImportTextChange = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      const csv = event.currentTarget.value;
+      setImportCsvText(csv);
+      setImportFileName("");
+
+      if (csv.trim() === "") {
+        setImportPreview(undefined);
+        setImportError(undefined);
+        return;
+      }
+
+      updateImportPreview(importEntityType, csv);
+    },
+    [importEntityType, updateImportPreview]
+  );
   const clearImportPreview = useCallback(() => {
     setImportCsvText("");
     setImportFileName("");
@@ -300,11 +316,13 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
             <ImportPreviewPanel
               entityType={importEntityType}
               fileName={importFileName}
+              importCsvText={importCsvText}
               importError={importError}
               preview={importPreview}
               selectedOption={selectedImportOption}
               onClear={clearImportPreview}
               onFileChange={handleImportFileChange}
+              onTextChange={handleImportTextChange}
               onTypeChange={handleImportTypeChange}
             />
           </section>
@@ -419,20 +437,24 @@ export function ProductionReviewShell({ review }: ProductionReviewShellProps) {
 function ImportPreviewPanel({
   entityType,
   fileName,
+  importCsvText,
   importError,
   preview,
   selectedOption,
   onClear,
   onFileChange,
+  onTextChange,
   onTypeChange
 }: {
   entityType: ImportEntityType;
   fileName: string;
+  importCsvText: string;
   importError: string | undefined;
   preview: ImportPreview | undefined;
   selectedOption: (typeof importEntityOptions)[number];
   onClear: () => void;
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onTextChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onTypeChange: (entityType: ImportEntityType) => void;
 }) {
   return (
@@ -485,6 +507,17 @@ function ImportPreviewPanel({
         </div>
       </div>
 
+      <label className="csv-paste-area">
+        <span>Paste CSV</span>
+        <textarea
+          value={importCsvText}
+          onChange={onTextChange}
+          rows={6}
+          spellCheck={false}
+          placeholder={selectedOption.expectedColumns.join(",")}
+        />
+      </label>
+
       {importError !== undefined ? (
         <div className="import-error">
           <AlertTriangle size={17} />
@@ -495,10 +528,10 @@ function ImportPreviewPanel({
       {preview === undefined ? (
         <div className="empty-import">
           <strong>No CSV loaded</strong>
-          <span>{fileName === "" ? "Choose a file to inspect rows." : fileName}</span>
+          <span>{fileName === "" ? "Choose a file or paste CSV to inspect rows." : fileName}</span>
         </div>
       ) : (
-        <ImportPreviewResults preview={preview} fileName={fileName} />
+        <ImportPreviewResults preview={preview} sourceName={fileName || "Pasted CSV"} />
       )}
     </div>
   );
@@ -506,10 +539,10 @@ function ImportPreviewPanel({
 
 function ImportPreviewResults({
   preview,
-  fileName
+  sourceName
 }: {
   preview: ImportPreview;
-  fileName: string;
+  sourceName: string;
 }) {
   const validRows = preview.validRecords.slice(0, 5);
   const errorRows = preview.errors.slice(0, 5);
@@ -517,7 +550,7 @@ function ImportPreviewResults({
   return (
     <div className="import-results">
       <div className="import-summary">
-        <ImportStat label="File" value={fileName || "CSV"} />
+        <ImportStat label="Source" value={sourceName} />
         <ImportStat label="Rows" value={String(preview.totalRows)} />
         <ImportStat label="Valid" value={String(preview.validRecords.length)} />
         <ImportStat

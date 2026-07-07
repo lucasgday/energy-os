@@ -591,6 +591,44 @@ h3 {
   font-weight: 700;
 }
 
+.csv-paste-area {
+  display: grid;
+  gap: 8px;
+}
+
+.csv-paste-area span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.csv-paste-area textarea {
+  width: 100%;
+  min-height: 132px;
+  padding: 12px;
+  color: var(--foreground);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  resize: vertical;
+  font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.csv-paste-area textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.72;
+}
+
+.csv-paste-area textarea:hover {
+  border-color: var(--line-strong);
+}
+
+.csv-paste-area textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  outline: none;
+}
+
 .empty-import {
   display: grid;
   place-items: center;
