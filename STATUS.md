@@ -14,11 +14,6 @@ _Actualizado 2026-10-21 · Claude Code (rescate trailkeep)_
 - Decidir si se compra un dominio propio para reemplazar open-energy-os.vercel.app antes de usarlo fuera del demo **Recomiendo:** Seguir con el alias hasta que haya auth o uso externo real. (opciones: Seguir con el alias de Vercel / Comprar un dominio ahora) _(«Energy OS» · Codex · 07/07)_
 - Confirmar que Apache 2.0 es la licencia inicial que querés **Recomiendo:** Mantener Apache 2.0 (patentes y adopción corporativa). (opciones: Mantener Apache 2.0 / Cambiar a MIT / Cambiar a AGPL) _(«Energy OS» · Codex · 07/07)_
 
-## Pendiente sin backlog
-
-- Alinear las reglas de datos públicos: AGENTS.md prohíbe commitear datos reales de pozos, pero docs/public-data-sources.md y docs/agent-handoff.md permiten un fixture real chico; sacar esa ruta _(«Review roadmap and project» · Codex · 11/07)_
-- Armar el preset de importación como Import Profiles / Source Adapters genéricos (alineados a OSDU), no uno específico de Capítulo IV, con unidades métricas o imperiales según preferencia del usuario _(«Energy OS» · Codex · 07/07)_
-
 ## Último cambio
 
 - 2026-10-04 · docs: add CLAUDE.md importing AGENTS.md (ce956a9)
